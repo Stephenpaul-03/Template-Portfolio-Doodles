@@ -1,42 +1,27 @@
+"use client"
+
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
-
-import { projects } from "@/data/projects"
-import { SectionHeading } from "@/components/section-heading"
+import { useCallback, useState } from "react"
+import { createPortal } from "react-dom"
+import { Chapter } from "@/components/scrapbook-ui"
+import { ScrapbookModal } from "@/components/scrapbook-modal"
+import { projects, type Project } from "@/data/projects"
 
 export function WorkSection() {
-  return (
-    <section id="work" className="mx-auto max-w-[90rem] scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-      <SectionHeading eyebrow="Selected work" title="Useful things, thoughtfully made." introduction="A sample structure for case studies, product work, and independent experiments. Real project details can drop straight into the typed data file." />
-      <div className="mt-14 grid gap-x-6 gap-y-12 md:grid-cols-2 lg:mt-20">
-        {projects.map((project, index) => (
-          <article key={project.title}>
-            <a href={project.link} className="group block" aria-label={`View ${project.title} project`}>
-              <div className="relative aspect-[4/3] overflow-hidden bg-stone-200">
-                <Image
-                  src={project.thumbnail}
-                  alt=""
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-                  priority={index < 2}
-                />
-              </div>
-              <div className="flex items-start justify-between gap-5 border-b border-stone-900/15 py-5">
-                <div>
-                  <h3 className="text-xl font-medium tracking-[-0.025em] sm:text-2xl">{project.title}</h3>
-                  <p className="mt-2 max-w-xl text-sm leading-6 text-stone-600 sm:text-base">{project.description}</p>
-                </div>
-                <ArrowUpRight className="mt-1 size-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-              </div>
-              <div className="mt-3 flex flex-col gap-2 text-[11px] uppercase tracking-[0.16em] text-stone-500 sm:flex-row sm:items-center sm:justify-between">
-                <span>{project.tags.join(" · ")}</span>
-                <span>{project.year}</span>
-              </div>
-            </a>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
+  const [selected, setSelected] = useState<Project | null>(null)
+  const [mounted, setMounted] = useState(false)
+  const reduced = useReducedMotion()
+  const close = useCallback(() => setSelected(null), [])
+  return <section id="work" className="scrap-work-section"><div className="scrap-container scrap-section">
+    <Chapter number="02" label="The work" title="A few things I’ve made." aside="From the working pile."/>
+    <div className="scrap-projects">{projects.map((project, index) => <motion.article key={project.title} className={`scrap-project scrap-project-${index}`} whileHover={reduced ? undefined : { y: -5 }} transition={{ duration: 0.25 }}>
+      <button className="scrap-project-trigger" onClick={() => { setMounted(true); setSelected(project) }} aria-label={`View ${project.title} case study`}>
+        <div className="scrap-project-image"><Image src={project.thumbnail} alt={`${project.title} concept artwork`} fill sizes="(max-width: 700px) 90vw, 550px"/><span className="scrap-project-sticker">0{index + 1}</span></div>
+        <div className="scrap-project-description"><span className="scrap-label">{project.tags.slice(0, 2).join(" / ")}<span>{project.year}</span></span><h3>{project.title}<ArrowUpRight size={22}/></h3><p>{project.description}</p><span className="scrap-project-read">Inside the project <span>↗</span></span></div>
+      </button>
+    </motion.article>)}</div>
+    {mounted && createPortal(<AnimatePresence>{selected && <ScrapbookModal key={selected.title} title={selected.title} onClose={close}><div className="scrap-modal-art"><Image src={selected.thumbnail} alt="" fill sizes="800px"/></div><div className="scrap-modal-copy"><span className="scrap-label">Project file / {selected.year}</span><h2>{selected.title}</h2><p>{selected.overview}</p><dl className="scrap-project-meta"><div><dt>My role</dt><dd>{selected.role}</dd></div><div><dt>Timeframe</dt><dd>{selected.timeline}</dd></div></dl><h3>What came out of it</h3><ul>{selected.outcomes.map(outcome => <li key={outcome}>{outcome}</li>)}</ul><div className="scrap-modal-links">{selected.links.map(link => <a className="scrap-button" key={link.label} href={link.href}>{link.label}<ArrowUpRight size={16}/></a>)}</div></div></ScrapbookModal>}</AnimatePresence>, document.body)}
+  </div></section>
 }

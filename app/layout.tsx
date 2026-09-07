@@ -1,5 +1,17 @@
 import type { Metadata } from "next"
+
+import { ThemeProvider } from "@/components/theme-provider"
+
 import "./globals.css"
+
+const themeScript = `
+  (() => {
+    const saved = localStorage.getItem("steves-workshop-theme");
+    const dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark", dark);
+    document.documentElement.style.colorScheme = dark ? "dark" : "light";
+  })();
+`
 
 export const metadata: Metadata = {
   title: {
@@ -11,8 +23,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   )
 }

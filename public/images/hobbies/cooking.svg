@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 675" role="img" aria-label="Colorful ingredients around a cooking pot">
+  <rect width="900" height="675" fill="#ece1cc"/><ellipse cx="450" cy="516" rx="273" ry="52" fill="#cabda7"/>
+  <path d="M254 279h392l-34 252H288z" fill="#3f5a4c"/><path d="M230 281h440" stroke="#26382f" stroke-width="28" stroke-linecap="round"/>
+  <path d="M352 248c-44-65 22-88 0-144M458 240c38-68-28-89 4-148M555 245c-15-73 49-79 46-141" fill="none" stroke="#a8a092" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="177" cy="202" r="65" fill="#c45643"/><circle cx="739" cy="202" r="55" fill="#d6a54c"/><path d="m132 122 50 32 45-36" fill="none" stroke="#52684f" stroke-width="16"/>
+  <path d="M710 154c15-47 58-66 83-57-4 39-29 70-72 77" fill="#69815f"/>
+</svg>

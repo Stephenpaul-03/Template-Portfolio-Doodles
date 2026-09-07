@@ -1,0 +1,357 @@
+/* Steve's personal scrapbook. All surface tokens are shared by the page and portals. */
+.scrapbook, .scrap-overlay {
+  --paper: #f5f0e5; --sheet: #fffdf6; --ink: #30362c; --quiet: #737567;
+  --rule: #d9d5c6; --green: #405c44; --green-ink: #fbfaf4; --red: #b85b43;
+  --yellow: #e8cf80; --note: #f2dfa2; --desk: #e8e0ce; --tape: #dfcc99ba;
+  color: var(--ink); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.dark .scrapbook, .dark .scrap-overlay {
+  --paper: #242120; --sheet: #322d2a; --ink: #f2e9dd; --quiet: #bfb3a7;
+  --rule: #514740; --green: #b5c8d0; --green-ink: #202629; --red: #edaa91;
+  --yellow: #d7b174; --note: #493e32; --desk: #1b1918; --tape: #b79b72aa;
+}
+.scrapbook { background: var(--paper); background-image: radial-gradient(#7d745512 0.6px, transparent 0.6px); background-size: 5px 5px; }
+.scrapbook *, .scrap-overlay * { box-sizing: border-box; }
+.scrapbook button, .scrap-overlay button { cursor: pointer; }
+.scrapbook button:disabled { cursor: default; }
+.scrapbook a, .scrapbook button, .scrap-overlay a, .scrap-overlay button { -webkit-tap-highlight-color: transparent; }
+.scrapbook :focus-visible, .scrap-overlay :focus-visible { outline: 2px solid var(--red); outline-offset: 5px; }
+.scrapbook h1, .scrapbook h2, .scrapbook h3, .scrap-overlay h2, .scrap-overlay h3 { font-weight: 400; text-wrap: balance; }
+.scrapbook h1, .scrapbook h2, .scrapbook h3, .scrap-overlay h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+.scrap-container { width: min(1160px, calc(100% - 80px)); margin-inline: auto; }
+.scrap-margin-section { position: relative; }
+.scrap-margin-scribbles { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; user-select: none; }
+.scrap-margin-mark { --doodle-gutter: max(40px, calc((100vw - 1160px) / 2)); --doodle-width: clamp(16px, calc(var(--doodle-gutter) * var(--doodle-size)), 76px); --doodle-offset: calc(6px + (var(--doodle-gutter) - var(--doodle-width) - 12px) * var(--doodle-lane)); position: absolute; width: var(--doodle-width); height: auto; color: var(--red); opacity: .48; transform: rotate(var(--doodle-tilt)); }
+.scrap-margin-mark-left { left: var(--doodle-offset); }
+.scrap-margin-mark-right { right: var(--doodle-offset); color: var(--green); }
+.scrap-section { padding-block: 100px; scroll-margin-top: 90px; }
+.scrap-label { font-size: 10px; font-weight: 600; letter-spacing: .14em; line-height: 1.7; text-transform: uppercase; color: var(--quiet); }
+.scrap-hand { font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive; font-size: 22px; line-height: 1.4; }
+.scrap-dot { display: inline-block; width: 7px; height: 7px; background: var(--green); border-radius: 50%; margin-right: 10px; }
+.scrap-button { display: inline-flex; align-items: center; justify-content: center; gap: 20px; background: var(--green); color: var(--green-ink); padding: 15px 20px; border-radius: 5px; font-size: 13px; transition: transform .2s, box-shadow .2s; }
+.scrap-button:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: 3px 5px 0 var(--rule); }
+.scrap-text-link { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; border-bottom: 1px solid var(--rule); padding-block: 7px; transition: color .2s, border-color .2s; }
+.scrap-text-link:hover { color: var(--red); border-color: var(--red); }
+.scrap-icon-button { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; transition: background .2s; }
+.scrap-icon-button:hover { background: var(--desk); }
+.scrap-skip { position: fixed; top: -80px; left: 20px; z-index: 200; background: var(--sheet); padding: 14px; }
+.scrap-skip:focus { top: 10px; }
+.scrap-header { position: sticky; top: 0; z-index: 50; height: 90px; padding-top: 12px; pointer-events: none; }
+.scrap-header-inner { position: relative; isolation: isolate; width: min(1240px, calc(100% - 60px)); height: 66px; margin: auto; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; gap: 25px; border: 1px solid transparent; border-radius: 5px; pointer-events: auto; transition: width .35s, background .35s, border-radius .35s, box-shadow .35s; }
+.scrap-header-inner::before { content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; background: color-mix(in srgb, var(--sheet) 94%, transparent); border: 1px solid var(--rule); box-shadow: 0 5px 22px #16190d10; backdrop-filter: blur(15px); opacity: 0; transition: opacity .3s ease-in-out; pointer-events: none; }
+.is-compact .scrap-header-inner { width: min(1020px, calc(100% - 32px)); border-radius: 50px; }
+.is-compact .scrap-header-inner::before { opacity: 1; }
+.scrap-brand { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.scrap-monogram { width: 35px; height: 35px; border: 1px solid var(--green); border-radius: 50%; font: italic 30px/.85 Georgia, serif; display: grid; place-items: center; color: var(--green); padding-bottom: 5px; }
+.scrap-brand-sub { display: block; font-size: 9px; font-weight: 400; color: var(--quiet); margin-top: 3px; }
+.scrap-desktop-nav { display: flex; gap: 4px; font-size: 11px; }
+.scrap-desktop-nav a { position: relative; isolation: isolate; padding: 10px 11px; border-radius: 30px; white-space: nowrap; }
+.scrap-desktop-nav a > span:not(.scrap-nav-pill) { position: relative; z-index: 1; }
+.scrap-nav-pill { position: absolute; inset: 0; border-radius: inherit; background: var(--note); border: 1px solid var(--rule); }
+.scrap-desktop-nav a[aria-current="location"] { color: var(--ink); }
+.scrap-header-progress { position: absolute; bottom: 0; left: 28px; right: 28px; height: 2px; overflow: hidden; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.scrap-header-progress > span { display: block; height: 100%; background: var(--red); transform-origin: left; }
+.is-compact .scrap-header-progress { opacity: .75; }
+.scrap-header-contact { position: relative; isolation: isolate; }
+.scrap-header-contact::before { content: ""; position: absolute; inset: -5px -7px; z-index: -1; border-radius: 20px; background: var(--note); opacity: 0; transition: opacity .24s ease-in-out; pointer-events: none; }
+.scrap-header-contact[aria-current="location"] { color: var(--ink); }
+.scrap-header-contact[aria-current="location"]::before { opacity: 1; }
+.scrap-mobile-nav a[aria-current="location"] { color: var(--red); font-weight: 600; }
+.scrap-mobile-nav a[aria-current="location"] > span { background: var(--note); border-radius: 50%; padding-inline: 7px; }
+.scrap-desktop-nav a:hover { color: var(--red); }
+.scrap-header-actions { display: flex; gap: 6px; align-items: center; }
+.scrap-mode-link { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--quiet); margin-right: 6px; }
+.scrap-header-contact { font-size: 12px; color: var(--green); border-bottom: 1px solid var(--green); padding: 6px 0; margin-left: 8px; }
+.scrap-menu-toggle { display: none; }
+.scrap-mobile-nav { position: absolute; right: 18px; top: 82px; width: min(340px, calc(100vw - 36px)); padding: 12px 22px; background: var(--sheet); box-shadow: 0 12px 28px #0002; border: 1px solid var(--rule); border-radius: 12px; pointer-events: auto; }
+.scrap-mobile-nav a { padding: 17px 0; display: flex; justify-content: space-between; border-bottom: 1px solid var(--rule); font-size: 14px; }
+.scrap-mobile-nav a:last-child { border: 0; }
+.scrap-hero { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 60px; min-height: 690px; padding-block: 65px 100px; }
+.scrap-hero h1 { font-size: clamp(48px, 5.6vw, 74px); line-height: 1.09; letter-spacing: -.045em; margin: 25px 0; }
+.scrap-underlined { position: relative; white-space: nowrap; }
+.scrap-underlined::after { content: ""; position: absolute; left: 0; right: 0; height: 10px; bottom: 2px; border-bottom: 3px solid var(--red); border-radius: 50%; transform: rotate(-2deg); }
+.scrap-intro { max-width: 435px; color: var(--quiet); font-size: 15px; line-height: 1.85; }
+.scrap-hero-links { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 30px; }
+.scrap-hero-foot { display: flex; flex-direction: column; gap: 14px; margin-top: 40px; }
+.scrap-hero-foot .scrap-hand { font-size: 19px; color: var(--red); transform: rotate(-2deg); transform-origin: left; }
+.scrap-hero-collage { position: relative; height: 505px; isolation: isolate; }
+.scrap-hero-graph { position: absolute; top: 28px; left: 5px; width: 83%; height: 335px; background-color: var(--sheet); background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 22px 22px; transform: rotate(-7deg); border: 1px solid var(--rule); }
+.scrap-hero-graph > span { position: absolute; top: 20px; left: 20px; font-size: 8px; letter-spacing: .2em; color: var(--quiet); }
+.scrap-hero-photo { position: absolute; top: 15px; right: 4px; width: 85%; padding: 14px 14px 20px; background: var(--sheet); transform: rotate(4deg); box-shadow: 0 9px 25px #222a1620, 0 1px 2px #222a1620; }
+.scrap-tape { position: absolute; width: 90px; height: 29px; left: calc(50% - 45px); top: -13px; background: var(--tape); transform: rotate(-4deg); z-index: 3; clip-path: polygon(2% 0,98% 2%,100% 16%,97% 32%,100% 55%,98% 80%,100% 100%,0 98%,3% 70%,0 45%); }
+.scrap-photo-image { position: relative; aspect-ratio: 1.12; overflow: hidden; background: var(--desk); }
+.scrap-photo-image img { object-fit: cover; }
+.scrap-hero-photo figcaption { padding-top: 16px; }
+.scrap-hero-photo figcaption .scrap-hand { display: block; font-size: 17px; }
+.scrap-hero-photo figcaption > span:last-child { display: block; margin-top: 8px; font-size: 7px; letter-spacing: .18em; color: var(--quiet); }
+.scrap-hero-note { position: absolute; bottom: 0; left: -12px; width: 245px; min-height: 182px; background: var(--note); padding: 22px 23px 15px; transform: rotate(-5deg); box-shadow: 2px 8px 14px #20241025; text-align: left; z-index: 4; transition: transform .25s; }
+.scrap-hero-note:hover { transform: rotate(-2deg) translateY(-4px); }
+.scrap-hero-note .scrap-label { font-size: 7px; }
+.scrap-hero-note .scrap-hand { display: block; margin-top: 12px; font-size: 23px; }
+.scrap-note-index { display: flex; justify-content: space-between; font-size: 8px; margin-top: 16px; color: var(--quiet); }
+.scrap-round-stamp { position: absolute; bottom: 15px; right: 15px; width: 102px; height: 102px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dotted var(--red); border-radius: 50%; color: var(--red); transform: rotate(13deg); gap: 5px; }
+.scrap-round-stamp span { font-size: 8px; letter-spacing: .15em; text-align: center; }
+.scrap-chapter { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 35px; border-top: 1px solid var(--rule); padding-top: 25px; margin-bottom: 48px; }
+.scrap-chapter-progress { position: absolute; top: -1px; left: 0; width: 80px; height: 2px; background: var(--red); transform-origin: left; }
+.scrap-chapter-number { color: var(--red); margin-right: 14px; }
+.scrap-chapter h2 { font-size: clamp(32px, 3.8vw, 47px); letter-spacing: -.035em; line-height: 1.15; margin-top: 12px; }
+.scrap-chapter > .scrap-hand { color: var(--red); font-size: 18px; max-width: 240px; transform: rotate(-4deg); text-align: right; }
+.scrap-about-layout { display: grid; grid-template-columns: 300px 1fr; gap: 90px; align-items: center; padding: 10px 50px 45px; }
+.scrap-id-card { position: relative; background: var(--sheet); padding: 30px 25px; box-shadow: 2px 4px 14px #0000000c; border: 1px solid var(--rule); transform: rotate(-3deg); text-align: center; }
+.scrap-avatar { width: 120px; height: 120px; display: grid; place-items: center; position: relative; border-radius: 50%; background: var(--green); color: var(--green-ink); font: italic 100px/1 Georgia,serif; padding-bottom: 23px; margin: 0 auto 18px; }
+.scrap-avatar span { position: absolute; bottom: 14px; right: 28px; color: var(--yellow); font-size: 80px; }
+.scrap-id-card > .scrap-hand { font-size: 28px; margin-bottom: 4px; }
+.scrap-id-lines { margin-top: 25px; border-top: 1px dashed var(--rule); text-align: left; }
+.scrap-id-lines > span { display: flex; justify-content: space-between; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 7px; letter-spacing: .07em; color: var(--quiet); }
+.scrap-id-lines b { font-size: 9px; color: var(--ink); letter-spacing: 0; font-weight: 500; }
+.scrap-about-copy h3 { font-size: 35px; line-height: 1.25; letter-spacing: -.025em; margin-bottom: 25px; }
+.scrap-about-copy h3 em { color: var(--green); }
+.scrap-about-copy > p { color: var(--quiet); font-size: 14px; line-height: 1.9; margin-block: 15px; }
+.scrap-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+.scrap-tags span { padding: 6px 10px; border: 1px solid var(--rule); font-size: 10px; border-radius: 3px; color: var(--quiet); }
+.scrap-principles { display: grid; grid-template-columns: 1.2fr 1fr; gap: 70px; padding: 30px 45px 0; }
+.scrap-principle-buttons { margin-top: 20px; }
+.scrap-principle-buttons button { display: flex; align-items: center; text-align: left; width: 100%; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--rule); font-size: 13px; color: var(--quiet); }
+.scrap-principle-buttons button > span { font-size: 10px; color: var(--red); }
+.scrap-principle-buttons svg { margin-left: auto; }
+.scrap-principle-buttons .is-active { color: var(--green); font-weight: 600; }
+.scrap-principle-note { background: var(--note); position: relative; padding: 35px 30px; transform: rotate(2deg); align-self: center; min-height: 190px; }
+.scrap-principle-note .scrap-hand { font-size: 21px; }
+.scrap-paper-pin { width: 9px; height: 9px; background: var(--red); border-radius: 50%; position: absolute; top: 12px; left: 50%; box-shadow: 1px 2px 3px #0003; }
+.scrap-work-section { background: var(--desk); position: relative; border-block: 1px solid var(--rule); }
+.scrap-projects { display: grid; grid-template-columns: 1fr 1fr; gap: 55px 40px; padding: 10px; }
+.scrap-project { background: var(--sheet); border: 1px solid var(--rule); box-shadow: 2px 5px 0 color-mix(in srgb, var(--rule) 75%, transparent); }
+.scrap-project:nth-child(even) { margin-top: 45px; }
+.scrap-project:nth-child(odd) { align-self: start; }
+.scrap-project-trigger { width: 100%; display: block; padding: 14px; text-align: left; }
+.scrap-project-image { aspect-ratio: 1.5; position: relative; overflow: hidden; }
+.scrap-project-image img { object-fit: cover; transition: transform .4s; }
+.scrap-project-trigger:hover img { transform: scale(1.035); }
+.scrap-project-sticker { position: absolute; top: 12px; left: 12px; padding: 8px 10px; background: var(--sheet); color: var(--red); font-size: 11px; transform: rotate(-7deg); }
+.scrap-project-description { padding: 22px 13px 9px; }
+.scrap-project-description > .scrap-label { display: flex; justify-content: space-between; font-size: 8px; }
+.scrap-project-description h3 { font-size: 31px; margin: 10px 0; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.scrap-project-description p { font-size: 13px; line-height: 1.8; color: var(--quiet); max-width: 370px; }
+.scrap-project-read { display: flex; justify-content: space-between; padding: 16px 0 3px; margin-top: 15px; border-top: 1px dashed var(--rule); font-size: 10px; color: var(--green); }
+.scrap-career { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
+.scrap-career-page { padding: 32px; background: var(--sheet); border: 1px solid var(--rule); position: relative; box-shadow: 4px 4px 0 var(--paper), 5px 5px 0 var(--rule); }
+.scrap-career-heading { display: flex; width: 100%; justify-content: space-between; text-align: left; gap: 20px; margin-top: 25px; }
+.scrap-career-heading h3 { font-size: 29px; line-height: 1.2; margin: 12px 0; }
+.scrap-career-heading > span > span:last-child { color: var(--quiet); font-size: 13px; }
+.scrap-career-period { color: var(--red); font-size: 10px; }
+.scrap-circle { width: 35px; height: 35px; border: 1px solid var(--rule); border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; }
+.scrap-career-details { margin-top: 25px; padding-top: 20px; border-top: 1px dashed var(--rule); }
+.scrap-career-details p { font-size: 13px; line-height: 1.8; color: var(--quiet); }
+.scrap-career-details ul { margin-top: 18px; }
+.scrap-career-details li { font-size: 12px; padding: 10px 0 10px 17px; border-bottom: 1px solid var(--rule); position: relative; }
+.scrap-career-details li::before { content: "↳"; position: absolute; left: 0; color: var(--red); }
+.scrap-education { padding: 30px; border: 1px solid var(--rule); background: repeating-linear-gradient(transparent,transparent 27px,color-mix(in srgb,var(--rule) 50%,transparent) 28px); }
+.scrap-education h3 { margin-block: 25px 16px; font-size: 29px; }
+.scrap-education p { font-size: 13px; line-height: 1.9; color: var(--quiet); }
+.scrap-education-school { font-size: 11px; color: var(--quiet); }
+.scrap-education-rule { width: 45px; height: 2px; background: var(--red); margin-block: 24px; }
+.scrap-future { position: relative; display: flex; flex-direction: column; gap: 18px; margin: 65px 0 0; padding: 40px 0 5px; border-top: 1px dashed var(--rule); }
+.scrap-future-title { font: 400 clamp(48px,7.5vw,92px)/1.15 Georgia,serif; letter-spacing: -.05em; padding-right: 75px; }
+.scrap-future-title em { color: var(--green); }
+.scrap-future-arrow { position: absolute; bottom: 15px; right: 0; width: 65px; height: 65px; border-radius: 50%; border: 1px solid var(--rule); display: grid; place-items: center; transition: transform .3s, background .3s; }
+.scrap-future:hover .scrap-future-arrow { transform: rotate(10deg); background: var(--note); }
+.scrap-hobbies-section { background: var(--desk); border-block: 1px solid var(--rule); }
+.scrap-board { position: relative; width: 100%; height: 860px; border-block: 1px solid var(--rule); background-color: var(--paper); background-image: radial-gradient(var(--rule) 1px,transparent 1px); background-size: 18px 18px; box-shadow: inset 0 0 35px #201b0d08; overflow: hidden; }
+.scrap-board-label { position: absolute; bottom: 35px; right: 40px; color: var(--quiet); transform: rotate(-3deg); font-size: 23px; }
+.scrap-board-doodle { position: absolute; top: 60px; left: 48%; color: var(--red); font-size: 80px; font-family: serif; }
+.scrap-board-item { position: absolute; width: 232px; height: 312px; }
+.scrap-board-item-0 { top: 5%; left: 5%; }
+.scrap-board-item-1 { top: 7%; left: 68%; }
+.scrap-board-item-2 { top: 36%; left: 36%; }
+.scrap-board-item-3 { top: 54%; left: 73%; }
+.scrap-board-item-4 { top: 58%; left: 7%; }
+.scrap-board-item-5 { top: 24%; left: 52%; }
+.scrap-board-item-6 { top: 68%; left: 30%; }
+.scrap-board-item-7 { top: 75%; left: 57%; }
+.scrap-hobby-card { padding: 10px 10px 17px; background: var(--sheet); border: 1px solid var(--rule); box-shadow: 3px 7px 15px #1e230e1f; height: 100%; position: relative; }
+.scrap-drag-handle { display: flex; justify-content: center; align-items: center; position: absolute; right: 16px; top: 16px; z-index: 2; width: 30px; height: 30px; border-radius: 50%; background: var(--sheet); color: var(--quiet); touch-action: none; cursor: grab !important; }
+.scrap-drag-handle:active { cursor: grabbing !important; }
+.scrap-hobby-image { position: relative; width: 100%; aspect-ratio: 1.4; cursor: grab; touch-action: none; }
+.scrap-hobby-image:active { cursor: grabbing; }
+.scrap-hobby-image img { object-fit: cover; pointer-events: none; }
+.scrap-hobby-caption { padding: 14px 8px 0; }
+.scrap-hobby-caption h3 { font-size: 22px; line-height: 1.1; }
+.scrap-hobby-caption p { color: var(--quiet); font-size: 10px; line-height: 1.6; margin-top: 7px; }
+.scrap-hobby-caption .scrap-text-link { font-size: 10px; margin-top: 10px; }
+.scrap-footer { padding-top: 95px; padding-bottom: 95px ; background: var(--paper); scroll-margin-top: 100px; }
+.scrap-envelope { max-width: 920px; margin: 0 auto; padding: 25px; background: var(--desk); border: 1px solid var(--rule); border-radius: 5px; box-shadow: 0 6px 25px #2428150c; }
+.scrap-letter { display: grid; grid-template-columns: minmax(0, 1fr) 130px; column-gap: 35px; padding: 35px 55px 40px; background: var(--sheet); border: 1px solid var(--rule); }
+.scrap-letter-main { min-width: 0; }
+.scrap-letter-rail { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.scrap-letter-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.scrap-postage { width: 66px; height: 80px; border: 2px dotted var(--red); color: var(--red); display: flex; flex-direction: column; align-items: center; justify-content: center; font: italic 24px Georgia,serif; transform: rotate(6deg); }
+.scrap-postage span { font: 6px Arial,sans-serif; letter-spacing: .15em; margin-top: 9px; }
+.scrap-letter h2 { margin-top: 12px; font-size: clamp(32px,4.8vw,54px); line-height: 1.16; letter-spacing: -.04em; }
+.scrap-letter h2 em { color: var(--green); }
+.scrap-letter-main > p { margin-top: 24px; font-size: 13px; line-height: 1.9; color: var(--quiet); }
+.scrap-email-line { display: flex; gap: 16px; align-items: center; margin-top: 30px; }
+.scrap-email-line > a { display: inline-flex; align-items: center; gap: 20px; font-family: Georgia,serif; font-size: clamp(19px,3vw,29px); border-bottom: 1px solid var(--red); padding-bottom: 8px; }
+.scrap-email-line a:hover { color: var(--red); }
+.scrap-copy-state { display: block; min-height: 22px; font-size: 10px; color: var(--quiet); margin-top: 7px; }
+.scrap-letter-signoff { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; margin-top: 30px; }
+.scrap-letter-signoff .scrap-hand { transform: rotate(-4deg); color: var(--red); }
+.scrap-envelope-bottom { display: grid; grid-template-columns: auto auto minmax(150px, 1fr) auto auto; align-items: center; gap: 18px; padding: 22px 0; font-size: 8px; letter-spacing: .12em; color: var(--quiet); }
+.scrap-footer-base-doodle { width: 34px; height: 44px; color: var(--red); opacity: .7; transform: rotate(-12deg); }
+.scrap-footer-mini-brand { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: 10px; font-weight: 600; letter-spacing: 0; white-space: nowrap; }
+.scrap-footer-mini-brand .scrap-monogram { width: 27px; height: 27px; font-size: 22px; }
+.scrap-envelope-origin { white-space: nowrap; }
+.scrap-envelope-meta { letter-spacing: .04em; white-space: nowrap; }
+.scrap-envelope-back { color: var(--quiet); letter-spacing: 0; white-space: nowrap; }
+.scrap-envelope-back:hover { color: var(--red); }
+.scrap-envelope-back { position: relative; z-index: 2; gap: 8px; color: var(--green-ink); padding: 9px 12px; font-size: 10px; }
+.scrap-envelope-back:hover { color: var(--green-ink); }
+.scrap-footer-base { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 30px 0; border-top: 1px solid var(--rule); font-size: 10px; }
+.scrap-letter-flight { width: 42px; height: 64px; margin-left: auto; margin-right: 25px; color: var(--red); transform: rotate(20deg); opacity: .75; flex-shrink: 0; pointer-events: none; }
+.scrap-footer-flourish { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 15px; margin: 26px 0 18px; padding: 0 8px; color: var(--red); pointer-events: none; }
+.scrap-footer-flourish svg { width: 43px; height: 64px; opacity: .7; transform: rotate(-12deg); }
+.scrap-footer-flourish svg:nth-child(even) { color: var(--green); transform: rotate(14deg); }
+.scrap-footer-flourish svg:nth-child(3) { transform: rotate(22deg) translateY(-6px); }
+.scrap-letter-socials { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+.scrap-resume-button { width: 100%; gap: 8px; padding: 10px 12px; font-size: 11px; white-space: nowrap; }
+.scrap-letter-socials a { display: inline-flex; align-items: center; justify-content: flex-start; gap: 9px; min-height: 44px; padding: 10px 15px; border: 1px solid var(--rule); border-radius: 3px; font-size: 12px; color: var(--green); background: var(--paper); transition: transform .2s, box-shadow .2s; }
+.scrap-letter-socials a svg { flex-shrink: 0; }
+.scrap-letter-socials a:nth-child(2) { transform: rotate(-2deg); }
+.scrap-letter-socials a:nth-child(3) { transform: rotate(2deg); }
+.scrap-letter-socials a:hover { transform: translateY(-3px); box-shadow: 2px 3px 0 var(--rule); }
+.scrap-envelope-bottom { position: relative; min-height: 65px; }
+.scrap-envelope-bottom { padding-right: 72px; background: var(--sheet); border-top: 1px solid var(--rule); }
+.scrap-envelope-postmark { position: absolute; right: 9px; z-index: 1; width: 46px; height: 50px; color: var(--quiet); opacity: .6; transform: rotate(90deg); pointer-events: none; }
+.scrap-footer-base a:hover { color: var(--red); }
+.scrap-overlay { position: fixed; inset: 0; z-index: 100; box-sizing: border-box; overflow: hidden; display: flex; padding: 40px 20px; align-items: center; justify-content: center; }
+.scrap-backdrop { position: fixed; inset: 0; background: #17201999; backdrop-filter: blur(12px); }
+.scrap-dialog { position: relative; z-index: 1; display: flex; flex-direction: column; width: min(760px,100%); max-height: 100%; min-height: 0; overflow: hidden; background: var(--sheet); border: 1px solid var(--rule); box-shadow: 0 20px 90px #0004; }
+.scrap-dialog-bar { display: flex; flex: 0 0 auto; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 22px; background: var(--sheet); border-bottom: 1px solid var(--rule); position: relative; z-index: 3; }
+.scrap-dialog-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.scrap-dialog-content:focus-visible { outline-offset: -4px; }
+.scrap-modal-art { position: relative; aspect-ratio: 1.65; overflow: hidden; }
+.scrap-modal-art img { object-fit: cover; }
+.scrap-modal-copy { padding: 32px 40px 45px; }
+.scrap-modal-copy h2 { font-size: 42px; line-height: 1.15; margin: 12px 0 22px; letter-spacing: -.035em; }
+.scrap-modal-copy p { font-size: 15px; color: var(--quiet); line-height: 1.8; }
+.scrap-modal-copy h3 { font-size: 15px; margin-top: 30px; }
+.scrap-modal-copy li { font-size: 13px; color: var(--quiet); line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.scrap-project-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px; padding-block: 20px; border-block: 1px dashed var(--rule); }
+.scrap-project-meta dt { font-size: 10px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.scrap-project-meta dd { font-size: 13px; }
+.scrap-modal-links { margin-top: 30px; }
+@media (max-width: 1100px) {
+  .scrap-desktop-nav { gap: 0; } .scrap-desktop-nav a { padding-inline: 8px; } .scrap-header-contact { display: none; }
+  .scrap-hero { gap: 25px; } .scrap-hero-note { width: 220px; }
+  .scrap-about-layout { padding-inline: 20px; gap: 50px; }
+  .scrap-board-item { width: 210px; height: 310px; }
+  .scrap-board-item-1 { left: 65%; } .scrap-board-item-3 { left: 69%; }
+}
+@media (max-width: 850px) {
+  .scrap-margin-scribbles { display: none; }
+  .scrap-desktop-nav { display: none; } .scrap-menu-toggle { display: inline-flex; }
+  .scrap-header-contact { display: block; }
+  .scrap-hero { grid-template-columns: 1fr 1fr; gap: 20px; min-height: 620px; padding-block: 45px 70px; }
+  .scrap-hero h1 { font-size: 48px; }
+  .scrap-hero-collage { height: 455px; }
+  .scrap-hero-photo { top: 50px; width: 95%; }
+  .scrap-hero-note { width: 195px; min-height: 170px; bottom: 0; left: -10px; }
+  .scrap-hero-note .scrap-hand { font-size: 20px; }
+  .scrap-round-stamp { right: -8px; bottom: 135px; width: 80px; height: 80px; z-index: 3; }
+  .scrap-about-layout { grid-template-columns: 240px 1fr; gap: 30px; padding-inline: 0; }
+  .scrap-principles { padding-inline: 0; gap: 35px; }
+  .scrap-career { grid-template-columns: 1fr; } .scrap-education { padding: 25px 32px; }
+  .scrap-board { height: 1400px; } .scrap-board-item-1 { left: 58%; top: 17%; }
+  .scrap-board-item-2 { left: 5%; top: 37%; } .scrap-board-item-3 { left: 57%; top: 51%; } .scrap-board-item-4 { left: 8%; top: 68%; }
+  .scrap-board-item-5 { left: 55%; top: 34%; } .scrap-board-item-6 { left: 8%; top: 79%; } .scrap-board-item-7 { left: 55%; top: 87%; }
+  .scrap-letter { padding: 30px; column-gap: 24px; }
+}
+@media (max-width: 650px) {
+  .scrap-container { width: calc(100% - 36px); }
+  .scrap-section { padding-block: 65px; }
+  .scrap-header { height: 80px; } .scrap-header-inner { width: calc(100% - 20px); padding-inline: 10px; gap: 5px; }
+  .scrap-header-actions { gap: 0; } .scrap-header-contact { display: none; } .scrap-mode-link { display: none; }
+  .scrap-hero { grid-template-columns: 1fr; padding-top: 30px; gap: 38px; padding-bottom: 60px; }
+  .scrap-hero h1 { font-size: clamp(43px,10.8vw,65px); }
+  .scrap-intro { font-size: 14px; max-width: 420px; }
+  .scrap-hero-foot { margin-top: 30px; gap: 9px; }
+  .scrap-hero-foot .scrap-label { font-size: 8px; }
+  .scrap-hero-collage { width: min(410px,92%); margin: 0 auto; height: 460px; }
+  .scrap-hero-photo { width: 88%; top: 10px; }
+  .scrap-hero-graph { top: 15px; height: 310px; }
+  .scrap-hero-note { bottom: 0; left: 0; width: 220px; }
+  .scrap-round-stamp { bottom: 28px; right: 3px; width: 82px; height: 82px; }
+  .scrap-chapter { gap: 15px; align-items: flex-start; margin-bottom: 35px; }
+  .scrap-chapter h2 { font-size: 34px; } .scrap-chapter > .scrap-hand { display: none; }
+  .scrap-about-layout { grid-template-columns: 1fr; gap: 42px; padding: 5px 8px 25px; }
+  .scrap-id-card { max-width: 300px; width: 100%; margin: auto; }
+  .scrap-about-copy h3 { font-size: 31px; }
+  .scrap-principles { grid-template-columns: 1fr; gap: 25px; }
+  .scrap-principle-note { min-height: 160px; margin: 5px; }
+  .scrap-projects { grid-template-columns: 1fr; gap: 30px; padding: 0; }
+  .scrap-project:nth-child(even) { margin-top: 0; }
+  .scrap-project-description { padding-inline: 5px; }
+  .scrap-project-description h3 { font-size: 29px; }
+  .scrap-project-image { aspect-ratio: 1.35; }
+  .scrap-career-page, .scrap-education { padding: 24px; }
+  .scrap-career-heading h3 { font-size: 26px; }
+  .scrap-future { margin-top: 45px; padding-top: 28px; }
+  .scrap-future-title { font-size: clamp(37px,9vw,55px); padding-right: 45px; }
+  .scrap-future-arrow { width: 37px; height: 37px; bottom: 5px; }
+  .scrap-future-arrow svg { width: 17px; }
+  .scrap-board { height: 1500px; }
+  .scrap-board-item { width: 175px; height: 287px; }
+  .scrap-board-item-0 { left: 4%; top: 3%; } .scrap-board-item-1 { left: 42%; top: 19%; }
+  .scrap-board-item-2 { left: 4%; top: 37%; } .scrap-board-item-3 { left: 42%; top: 53%; } .scrap-board-item-4 { left: 4%; top: 72%; }
+  .scrap-board-item-5 { left: 42%; top: 35%; } .scrap-board-item-6 { left: 4%; top: 82%; } .scrap-board-item-7 { left: 42%; top: 86%; }
+  .scrap-hobby-caption { padding-inline: 3px; } .scrap-hobby-caption h3 { font-size: 20px; }
+  .scrap-board-label { right: 17px; bottom: 20px; font-size: 17px; } .scrap-board-doodle { left: 62%; top: 7%; font-size: 55px; }
+  .scrap-envelope { padding: 10px; margin-bottom: 45px; }
+  .scrap-letter { position: relative; grid-template-columns: minmax(0, 1fr); padding: 23px 20px 30px; }
+  .scrap-letter-rail { width: 100%; justify-self: stretch; margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .scrap-letter-rail .scrap-postage { position: absolute; top: 145px; right: 18px; }
+  .scrap-letter-rail .scrap-resume-button { grid-column: 1; grid-row: 1; }
+  .scrap-letter-socials { display: contents; text-align: left; }
+  .scrap-letter-socials a { min-width: 0; }
+  .scrap-letter-socials a:nth-child(1) { grid-column: 2; grid-row: 1; }
+  .scrap-letter-socials a:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .scrap-letter-socials a:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .scrap-letter-top > .scrap-label { font-size: 8px; max-width: 130px; }
+  .scrap-postage { width: 48px; height: 60px; font-size: 20px; }
+  .scrap-letter h2 { margin-top: 25px; padding-right: 64px; font-size: 33px; }
+  .scrap-letter-main > p { font-size: 12px; }
+  .scrap-email-line { gap: 3px; } .scrap-email-line a { font-size: clamp(17px,5vw,23px); gap: 8px; } .scrap-email-line svg { width: 17px; }
+  .scrap-footer { padding-top: 60px; }
+  .scrap-footer-base { flex-wrap: wrap; gap: 24px; }
+  .scrap-footer-base > a:last-child { width: 100%; }
+  .scrap-envelope-bottom { grid-template-columns: 1fr auto; gap: 12px; padding-block: 18px; }
+  .scrap-footer-base-doodle { position: absolute; left: -35px; bottom: 13px; width: 28px; height: 38px; }
+  .scrap-envelope-origin { grid-column: 1 / -1; grid-row: 1; }
+  .scrap-footer-mini-brand { grid-column: 1; grid-row: 2; }
+  .scrap-envelope-meta { grid-column: 1 / -1; grid-row: 3; }
+  .scrap-envelope-back { grid-column: 2; grid-row: 2; }
+  .scrap-envelope-bottom { padding-right: 0; }
+  .scrap-footer-base-doodle, .scrap-envelope-postmark { display: none; }
+  .scrap-letter-flight { width: 30px; height: 55px; margin-right: 0; }
+  .scrap-letter-top { gap: 12px; }
+  .scrap-letter-top > .scrap-label { max-width: 100px; }
+  .scrap-footer-flourish { gap: 10px; padding: 0; }
+  .scrap-footer-flourish svg { width: 30px; height: 48px; min-width: 0; }
+  .scrap-letter-socials { gap: 10px; }
+  .scrap-letter-socials a { font-size: 11px; gap: 10px; padding-inline: 12px; }
+  .scrap-overlay { padding: 16px 12px; }
+  .scrap-dialog-bar { padding: 10px 16px; }
+  .scrap-modal-copy { padding: 25px 22px 35px; }
+  .scrap-modal-copy h2 { font-size: 34px; }
+  .scrap-modal-copy p { font-size: 14px; }
+}
+@media (max-width: 360px) {
+  .scrap-board-item { width: 158px; }
+  .scrap-hero-note { width: 190px; }
+  .scrap-hero-collage { height: 430px; }
+  .scrap-round-stamp { width: 65px; height: 65px; right: -5px; }
+  .scrap-hero-links { gap: 15px; }
+  .scrap-brand-sub { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrapbook *, .scrapbook *::before, .scrapbook *::after, .scrap-overlay * { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; }
+}
