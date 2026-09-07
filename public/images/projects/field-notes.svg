@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Abstract editorial layout in warm grey and red">
+  <rect width="1200" height="900" fill="#ded8cb"/>
+  <rect x="96" y="90" width="1008" height="720" rx="6" fill="#f4f0e7"/>
+  <rect x="155" y="158" width="305" height="35" fill="#1f2420"/>
+  <rect x="155" y="222" width="183" height="10" fill="#9b968b"/>
+  <rect x="155" y="254" width="246" height="10" fill="#bbb5a9"/>
+  <circle cx="856" cy="375" r="164" fill="#b74e3c"/>
+  <path d="M728 375h256M856 247v256" stroke="#f4f0e7" stroke-width="2" opacity=".6"/>
+  <rect x="155" y="639" width="417" height="1" fill="#252a26" opacity=".3"/>
+  <rect x="155" y="679" width="246" height="10" fill="#78766f"/>
+  <rect x="155" y="709" width="331" height="10" fill="#b2aca0"/>
+</svg>

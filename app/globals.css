@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans-system);
+  --font-display: var(--font-display-system);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --font-sans-system: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display-system: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  --radius: 0.625rem;
+  --background: oklch(0.99 0.004 85);
+  --foreground: oklch(0.19 0.012 70);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.19 0.012 70);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.19 0.012 70);
+  --primary: oklch(0.23 0.014 70);
+  --primary-foreground: oklch(0.985 0.004 85);
+  --secondary: oklch(0.95 0.008 85);
+  --secondary-foreground: oklch(0.23 0.014 70);
+  --muted: oklch(0.95 0.008 85);
+  --muted-foreground: oklch(0.5 0.014 70);
+  --accent: oklch(0.92 0.025 80);
+  --accent-foreground: oklch(0.23 0.014 70);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.87 0.012 80);
+  --input: oklch(0.87 0.012 80);
+  --ring: oklch(0.53 0.06 58);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-system);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #d8c9aa;
+  color: #171612;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
