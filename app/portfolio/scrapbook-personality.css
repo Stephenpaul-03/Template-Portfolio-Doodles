@@ -1,0 +1,117 @@
+/* Colorful paper objects and ink accents, shared by light and dark themes. */
+.scrapbook, .scrap-overlay {
+  --green: #344dcc;
+  --red: #bb412d;
+  --note: #ffe184;
+  --tape: #ff967dc9;
+  --color-blue: #465ce0;
+  --color-coral: #ec7254;
+  --color-mint: #a4dab8;
+  --color-lilac: #c8b4ef;
+  --color-pink: #f5accb;
+  --color-gold: #ffd665;
+  --doodle-blue: #465ce0;
+  --doodle-coral: #c54834;
+  --doodle-mint: #248368;
+}
+.dark .scrapbook, .dark .scrap-overlay {
+  --green: #b6bcff;
+  --green-ink: #252342;
+  --red: #ffaf88;
+  --note: #534331;
+  --doodle-blue: #9faaff;
+  --doodle-coral: #ffa183;
+  --doodle-mint: #91d8b4;
+}
+.scrap-written-word { display: inline-block; white-space: nowrap; }
+.scrap-written [data-ink] { display: inline-block; }
+.scrap-note-writing { display: flex; flex: 1; }
+.scrap-margin-mark { opacity: .85; }
+.scrap-margin-mark:nth-child(3n + 1) { color: var(--doodle-blue); }
+.scrap-margin-mark:nth-child(3n + 2) { color: var(--doodle-coral); }
+.scrap-margin-mark:nth-child(3n) { color: var(--doodle-mint); }
+
+/* Colored graph paper, a butter-yellow photo, and a bright pink stamp. */
+.scrap-hero-graph { --rule: #98b3df; background-color: #c6dafa; }
+.scrap-hero-graph > span { color: #374670; }
+.scrap-hero-photo { --quiet: #6b552e; color: #3c302b; background: #fff2be; }
+.scrap-hero-photo .scrap-tape { background: repeating-linear-gradient(45deg, #ff927bd9 0 8px, #ffbba9e6 8px 16px); }
+.scrap-round-stamp { background: var(--color-pink); border-color: #633668; color: #633668; }
+.scrap-principle-note { background: linear-gradient(170deg, #f397bd 0%, #ffc6dc 35%, #ffafce 100%); --postit-ink: #542b45; --postit-muted: #733e59; }
+.scrap-principle-note::before { background: linear-gradient(#b8387420, #b8387405); }
+.scrap-principle-buttons .is-active { border-bottom-color: var(--red); }
+.scrap-chapter-number { display: inline-grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: var(--color-gold); color: #574019; letter-spacing: 0; transform: rotate(-9deg); }
+.scrap-chapter-progress { background: var(--color-coral); height: 3px; }
+
+/* A pink personal file and lilac notebook create larger areas of color. */
+.scrap-id-card {
+  --ink: #3e2440; --quiet: #63354d; --rule: #d187aa;
+  --green: #4f3ca7; --green-ink: #fff8f4;
+  background: #f6b6d1; color: var(--ink);
+}
+.scrap-id-card .scrap-tape { background: #8bace5cf; }
+.scrap-about-copy .scrap-tags span { color: #393148; border-color: transparent; }
+.scrap-about-copy .scrap-tags span:nth-child(4n + 1) { background: #bdd5fa; }
+.scrap-about-copy .scrap-tags span:nth-child(4n + 2) { background: #ffd5b8; }
+.scrap-about-copy .scrap-tags span:nth-child(4n + 3) { background: #c2e6cc; }
+.scrap-about-copy .scrap-tags span:nth-child(4n) { background: #e0c6f2; }
+.scrap-career-page { border-left: 7px solid var(--color-blue); }
+.scrap-education { --ink: #382c4d; --quiet: #554165; --rule: #ad93ca; --red: #633789; background-color: #dac5f2; color: var(--ink); }
+.scrap-future-title em { background: linear-gradient(transparent 77%, var(--color-coral) 77% 89%, transparent 89%); }
+
+/* Each project gets a different tape and sticker color. */
+.scrap-project { --project-tone: #a9cdf7; position: relative; border-top: 7px solid var(--project-tone); }
+.scrap-project-1 { --project-tone: #ffc6a4; }
+.scrap-project-2 { --project-tone: #c9b4ed; }
+.scrap-project-3 { --project-tone: #a8dcbc; }
+.scrap-project::before { content: ""; position: absolute; top: -18px; left: calc(50% - 36px); z-index: 2; width: 72px; height: 24px; background: var(--project-tone); opacity: .85; transform: rotate(-6deg); clip-path: polygon(2% 0, 98% 3%, 96% 23%, 100% 60%, 97% 100%, 0 97%, 3% 62%, 0 22%); pointer-events: none; }
+.scrap-project-sticker { background: var(--project-tone); color: #362e47; }
+
+/* All eight cards are colored paper, including in dark mode. */
+.scrap-board { background-color: #f2dfbc; background-image: radial-gradient(#b9a38470 1px, transparent 1px); height: 1210px; }
+.dark .scrap-board { background-color: #342b31; background-image: radial-gradient(#c6a4bb30 1px, transparent 1px); }
+.scrap-board-item-0 { --hobby-paper: #ffcfad; top: 4%; left: 6%; }
+.scrap-board-item-1 { --hobby-paper: #b7d9fa; top: 8%; left: 68%; }
+.scrap-board-item-2 { --hobby-paper: #ffe78c; top: 32%; left: 34%; }
+.scrap-board-item-3 { --hobby-paper: #bde6c6; top: 46%; left: 72%; }
+.scrap-board-item-4 { --hobby-paper: #dac4f1; top: 57%; left: 8%; }
+.scrap-board-item-5 { --hobby-paper: #ffc4d6; top: 3%; left: 36%; }
+.scrap-board-item-6 { --hobby-paper: #b4dfdf; top: 69%; left: 35%; }
+.scrap-board-item-7 { --hobby-paper: #ffb9a7; top: 72%; left: 70%; }
+.scrap-hobby-card { --ink: #302b3b; --quiet: #584653; --rule: #302b3b33; --green: #414baa; --sheet: var(--hobby-paper); background: var(--hobby-paper); color: var(--ink); }
+.scrap-hobby-image { border: 1px solid #302b3b20; }
+
+/* Keep the contact text on one paper surface, framed by blue stationery. */
+.scrap-envelope { background: #5366c3; border-color: #5366c3; }
+.scrap-postage { background: #f6b6d1; color: #633668; border-color: #633668; }
+.scrap-letter-socials a { color: #393148; border-color: #39314822; }
+.scrap-letter-socials a:nth-child(1) { background: #bdd5fa; }
+.scrap-letter-socials a:nth-child(2) { background: #c2e6cc; }
+.scrap-letter-socials a:nth-child(3) { background: #ffd0df; }
+.scrap-footer-flourish svg { opacity: .95; }
+.scrap-footer-flourish svg:nth-child(3n + 1) { color: var(--doodle-coral); }
+.scrap-footer-flourish svg:nth-child(3n + 2) { color: var(--doodle-blue); }
+.scrap-footer-flourish svg:nth-child(3n) { color: var(--doodle-mint); }
+
+@media (max-width: 850px) {
+  .scrap-board { height: 1580px; }
+  .scrap-board-item-0 { top: 3%; left: 6%; }
+  .scrap-board-item-1 { top: 12%; left: 60%; }
+  .scrap-board-item-2 { top: 26%; left: 9%; }
+  .scrap-board-item-3 { top: 37%; left: 57%; }
+  .scrap-board-item-4 { top: 49%; left: 6%; }
+  .scrap-board-item-5 { top: 57%; left: 60%; }
+  .scrap-board-item-6 { top: 72%; left: 11%; }
+  .scrap-board-item-7 { top: 79%; left: 57%; }
+}
+@media (max-width: 650px) {
+  .scrap-board { height: 1880px; }
+  .scrap-board-item-0 { top: 2%; left: 5%; }
+  .scrap-board-item-1 { top: 12%; left: 46%; }
+  .scrap-board-item-2 { top: 25%; left: 5%; }
+  .scrap-board-item-3 { top: 35%; left: 46%; }
+  .scrap-board-item-4 { top: 48%; left: 5%; }
+  .scrap-board-item-5 { top: 58%; left: 46%; }
+  .scrap-board-item-6 { top: 71%; left: 5%; }
+  .scrap-board-item-7 { top: 81%; left: 46%; }
+}

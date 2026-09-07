@@ -31,7 +31,7 @@ export function ModeSwitch() {
         transition={{ ...transition, delay: reduceMotion ? 0 : 0.05 }}
         className="relative flex items-center justify-between px-8 py-7 text-[10px] font-medium uppercase tracking-[0.28em] text-[#8b887f] lg:px-14"
       >
-        <span>Steve&apos;s Workshop</span>
+        <span>Stephen Paul&apos;s Workshop</span>
         <span>Choose your way in</span>
       </motion.header>
 

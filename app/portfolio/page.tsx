@@ -7,15 +7,18 @@ import { MarginScribbles } from "@/components/margin-scribbles"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { WorkSection } from "@/components/work-section"
+import { ScrapbookMotion } from "@/components/scrapbook-motion"
 import "./scrapbook.css"
+import "./scrapbook-personality.css"
 
-export const metadata: Metadata = { title: "Portfolio", description: "A collection of work, observations, and things that matter to Steve." }
+export const metadata: Metadata = { title: "Portfolio", description: "A collection of work, observations, and things that matter to Stephen Paul." }
 
 export default function PortfolioPage() {
   return <div id="scrapbook-page" className="scrapbook">
     <a className="scrap-skip" href="#main-content">Skip to content</a>
     <div id="top"/>
     <SiteHeader/>
+    <ScrapbookMotion/>
     <main id="main-content">
       <div className="scrap-margin-section"><MarginScribbles/><HeroSection/></div>
       <div className="scrap-margin-section"><MarginScribbles variant={1}/><AboutSection/></div>

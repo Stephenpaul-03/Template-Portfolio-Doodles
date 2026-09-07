@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion, useReducedMotion, useScroll } from "framer-motion"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { ArrowLeft, Menu, Moon, Sun, X } from "lucide-react"
 import Link from "next/link"
 import { useTheme } from "@/components/theme-provider"
@@ -21,7 +21,6 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const menu = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll()
   const reduced = useReducedMotion()
   const { theme, toggleTheme } = useTheme()
 
@@ -72,7 +71,7 @@ export function SiteHeader() {
   const currentLabel = allLinks.find(link => link.href === `#${active}`)?.label ?? "The beginning"
   return <header ref={header} className={`scrap-header ${compact ? "is-compact" : ""}`}>
     <div className="scrap-header-inner">
-      <a className="scrap-brand" href="#top" aria-label="Steve's Workshop, back to top"><span className="scrap-monogram">s.</span><span>Steve’s Workshop<span className="scrap-brand-sub">{compact ? currentLabel : "a little collection of me"}</span></span></a>
+      <a className="scrap-brand" href="#top" aria-label="Stephen Paul's Workshop, back to top"><span className="scrap-monogram">s.</span><span>Stephen Paul’s Workshop<span className="scrap-brand-sub">{compact ? currentLabel : "a little collection of me"}</span></span></a>
       <nav aria-label="Main navigation" className="scrap-desktop-nav">{links.map(link => {
         const selected = link.href === `#${active}`
         return <a key={link.href} href={link.href} aria-current={selected ? "location" : undefined}>
@@ -90,7 +89,6 @@ export function SiteHeader() {
         <a href="#contact" className="scrap-header-contact" aria-current={active === "contact" ? "location" : undefined}>Say hello ↗</a>
         <button ref={menu} className="scrap-icon-button scrap-menu-toggle" aria-controls="scrap-menu" aria-expanded={open} onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"}>{open ? <X size={18}/> : <Menu size={18}/>}</button>
       </div>
-      <div className="scrap-header-progress" aria-hidden="true"><motion.span style={{ scaleX: scrollYProgress }}/></div>
     </div>
     {open && <nav id="scrap-menu" className="scrap-mobile-nav" aria-label="Mobile navigation">{allLinks.map(link => <a key={link.href} href={link.href} aria-current={link.href === `#${active}` ? "location" : undefined} onClick={() => setOpen(false)}>{link.label}<span>↗</span></a>)}</nav>}
   </header>

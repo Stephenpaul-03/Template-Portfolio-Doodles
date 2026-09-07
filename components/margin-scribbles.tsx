@@ -25,7 +25,7 @@ export type DoodleName = keyof typeof marks
 
 export function Doodle({ name, className = "", style, ...props }: { name: DoodleName; className?: string; style?: CSSProperties } & SVGProps<SVGSVGElement>) {
   return <svg className={className} style={style} data-doodle={name} viewBox="0 0 80 120" fill="none" aria-hidden="true" focusable="false" {...props}>
-    <path d={marks[name]} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+    <path pathLength={1} d={marks[name]} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 }
 

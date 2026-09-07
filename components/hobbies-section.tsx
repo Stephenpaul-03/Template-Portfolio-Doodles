@@ -143,7 +143,7 @@ export function HobbiesSection() {
   const [mounted, setMounted] = useState(false)
   const [layers, setLayers] = useState<Record<string, number>>({})
   const board = useRef<HTMLDivElement>(null)
-  const layer = useRef(5)
+  const layer = useRef(hobbies.length)
   const lastSelected = useRef<string>("")
   const close = useCallback(() => setSelected(null), [])
   return <section id="hobbies" className="scrap-hobbies-section scrap-section">

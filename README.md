@@ -1,4 +1,4 @@
-# Steve's Workshop
+# Stephen Paul's Workshop
 
 A two-path portfolio built with Next.js 15, the App Router, TypeScript, Tailwind CSS 4, and shadcn/ui.
 

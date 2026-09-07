@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowUpRight, Check, Copy, Download, Github, Instagram, Linkedin } from "lucide-react"
 import { Doodle, type DoodleName } from "@/components/margin-scribbles"
+import { Handwritten } from "@/components/handwritten"
 
 const email = "hello@example.com"
 const footerDoodles: DoodleName[] = ["coffee", "sparkles", "plane", "orbit", "pencil"]
@@ -38,11 +39,11 @@ export function SiteFooter() {
         </div>
         <span className="scrap-copy-state" role="status">{copyState}</span>
         <div className="scrap-letter-signoff">
-          <span className="scrap-hand">Until then, Steve.</span>
+          <Handwritten className="scrap-hand" text="Until then, Stephen Paul."/>
         </div>
         </div>
         <div className="scrap-letter-rail">
-          <span className="scrap-postage" aria-hidden="true">S.W.<span>BY HUMAN</span></span>
+          <span className="scrap-postage" aria-hidden="true">S.P.<span>BY LOVE</span></span>
           <a href="/files/steve-resume-placeholder.pdf" download className="scrap-resume-button scrap-button"><Download size={15}/>My résumé</a>
         <nav className="scrap-letter-socials" aria-label="Social links">
           {socials.map(({ label, href, icon: Icon }) => <a key={label} href={href}><Icon size={16} aria-hidden="true"/><span>{label}</span></a>)}
@@ -54,10 +55,10 @@ export function SiteFooter() {
       </div>
       <div className="scrap-envelope-bottom">
         <Doodle name="sparkles" className="scrap-footer-base-doodle"/>
-        <a href="#top" className="scrap-footer-mini-brand"><span className="scrap-monogram">s.</span><span>Steve’s Workshop</span></a>
+        <a href="#top" className="scrap-footer-mini-brand"><span className="scrap-monogram">s.</span><span>Stephen Paul’s Workshop</span></a>
         <span className="scrap-envelope-origin">FROM INDIA, WITH CURIOSITY.</span>
-        <span className="scrap-envelope-meta">© {new Date().getFullYear()} Steve · Always a work in progress.</span>
-        <a href="#top" className="scrap-envelope-back scrap-button">Back to the beginning <span aria-hidden="true">↑</span></a>
+        <span className="scrap-envelope-meta">© {new Date().getFullYear()} Stephen Paul · Always a work in progress.</span>
+        <a href="#top" className="scrap-envelope-back scrap-button" aria-label="Back to the beginning"><span className="scrap-envelope-back-label">Back to the beginning</span><span aria-hidden="true">↑</span></a>
         <Doodle name="waves" className="scrap-envelope-postmark" aria-hidden="true"/>
       </div>
     </div>

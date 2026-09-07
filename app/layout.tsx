@@ -15,10 +15,10 @@ const themeScript = `
 
 export const metadata: Metadata = {
   title: {
-    default: "Steve's Workshop",
-    template: "%s | Steve's Workshop",
+    default: "Stephen Paul's Workshop",
+    template: "%s | Stephen Paul's Workshop",
   },
-  description: "The portfolio of Steve - designer, builder, and curious problem solver.",
+  description: "The portfolio of Stephen Paul - designer, builder, and curious problem solver.",
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
