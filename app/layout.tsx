@@ -1,4 +1,7 @@
 import type { Metadata } from "next"
+import { content } from "@/data/content"
+import { motionBootstrap, motionPrepaintStyles } from "@/lib/scrapbook-motion-config"
+
 
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -15,17 +18,19 @@ const themeScript = `
 
 export const metadata: Metadata = {
   title: {
-    default: "Stephen Paul's Workshop",
-    template: "%s | Stephen Paul's Workshop",
+    default: content.site.brand,
+    template: `%s | ${content.site.brand}`,
   },
-  description: "The portfolio of Stephen Paul - designer, builder, and curious problem solver.",
+  description: content.site.description,
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={content.site.language} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <style dangerouslySetInnerHTML={{ __html: motionPrepaintStyles }} />
+        <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
       </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>

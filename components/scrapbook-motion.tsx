@@ -1,151 +1,217 @@
 "use client"
 
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
+import { setupDoodleScroll } from "@/lib/doodle-scroll"
+import { motionTargets as targets, motionSelector as selector, type MotionEffect as Effect } from "@/lib/scrapbook-motion-config"
 
-type Effect = "fade" | "paper" | "note" | "stamp" | "draw" | "write"
-const targets: readonly [string, Effect, number][] = [
-  ["[data-write]", "write", 140],
-  ["[data-doodle]", "draw", 100],
-  [".scrap-postit", "note", 160],
-  [".scrap-round-stamp, .scrap-postage", "stamp", 240],
-  [".scrap-hero-graph, .scrap-hero-photo, .scrap-id-card", "paper", 120],
-  [".scrap-project, .scrap-career-page, .scrap-education", "paper", 70],
-  [".scrap-chapter, .scrap-about-copy, .scrap-principle-buttons, .scrap-future", "fade", 0],
-  [".scrap-hero-copy > *, .scrap-board-item, .scrap-letter-main, .scrap-envelope-bottom", "fade", 70],
-]
-const selector = targets.map(([match]) => match).join(", ")
+type State = "waiting" | "queued" | "running" | "done"
+type Item = {
+  element: Element
+  section: Element
+  effect: Effect
+  phase: number
+  order: number
+  state: State
+  animations: Animation[]
+}
+
 const ease = "cubic-bezier(.2,.7,.2,1)"
 
 function entrance(effect: Effect): { keyframes: Keyframe[]; duration: number } {
   if (effect === "note") return {
-    duration: 850,
+    duration: 520,
     keyframes: [
-      { opacity: 0, translate: "12px -44px", rotate: "-12deg", scale: ".9" },
-      { opacity: 1, translate: "0 3px", rotate: "2deg", scale: "1.015", offset: .8 },
+      { opacity: 0, translate: "8px -24px", rotate: "-8deg", scale: ".96" },
+      { opacity: 1, translate: "0 2px", rotate: "1deg", scale: "1", offset: .8 },
       { opacity: 1, translate: "0 0", rotate: "0deg", scale: "1" },
     ],
   }
   if (effect === "paper") return {
-    duration: 750,
+    duration: 460,
     keyframes: [
-      { opacity: 0, translate: "0 34px", rotate: "-4deg" },
-      { opacity: 1, translate: "0 -2px", rotate: "1deg", offset: .8 },
+      { opacity: 0, translate: "0 18px", rotate: "-2deg" },
       { opacity: 1, translate: "0 0", rotate: "0deg" },
     ],
   }
   if (effect === "stamp") return {
-    duration: 550,
+    duration: 300,
     keyframes: [
-      { opacity: 0, scale: "1.35", rotate: "12deg" },
-      { opacity: 1, scale: ".96", rotate: "-2deg", offset: .7 },
+      { opacity: 0, scale: "1.15", rotate: "6deg" },
       { opacity: 1, scale: "1", rotate: "0deg" },
     ],
   }
-  return { duration: 650, keyframes: [{ opacity: 0, translate: "0 24px" }, { opacity: 1, translate: "0 0" }] }
+  return { duration: 380, keyframes: [{ opacity: 0, translate: "0 14px" }, { opacity: 1, translate: "0 0" }] }
 }
 
-// Enhances visible HTML after hydration. No CSS or server markup hides content.
-// Animations use individual transforms so card dragging and existing rotations
-// keep ownership of their transform property.
+// CSS holds the first frame before hydration; the controller hands each target
+// to WAAPI before releasing that gate. Individual transforms preserve card dragging.
 export function ScrapbookMotion() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const page = document.getElementById("scrapbook-page")
-    if (!page || !("IntersectionObserver" in window) || !Element.prototype.animate) return
+    if (!page || !window.matchMedia || !("IntersectionObserver" in window) || !Element.prototype.animate) return
+    const root = document.documentElement
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
     let dispose = () => {}
+    let motionDisabled = false
 
     function enable() {
       dispose()
-      if (preference.matches || !page) return
-      const seen = new WeakSet<Element>()
-      const waiting = new Map<Element, { effect: Effect; delay: number }>()
-      const running = new Map<Animation, Element>()
-      const sequences = new Map<string, number>()
+      if (preference.matches) motionDisabled = true
+      if (motionDisabled) root.setAttribute("data-scrap-motion", "idle")
+      // Once content has been shown statically, never hide it again on a late
+      // hydration or preference change. Client navigation starts from "idle".
+      if (motionDisabled || !page || !["pending", "idle"].includes(root.getAttribute("data-scrap-motion") ?? "")) return
+      const items = new Map<Element, Item>()
+      const active = new Set<Item>()
+      let frame = 0
+      let disposed = false
 
-      function play(element: Element, frames: Keyframe[], duration: number, delay: number, easing = ease) {
-        const animation = element.animate(frames, { duration, delay, easing, fill: "backwards" })
-        running.set(animation, element)
-        const clear = () => { running.delete(animation); animation.cancel() }
-        animation.onfinish = clear
-        animation.oncancel = () => running.delete(animation)
+      function schedule() {
+        if (!disposed && !frame) frame = requestAnimationFrame(pump)
       }
 
-      function reveal(element: Element, effect: Effect, delay: number) {
-        if (effect === "draw") {
-          element.querySelectorAll("path").forEach((path, index) => {
-            play(path, [{ strokeDasharray: "1 1", strokeDashoffset: 1 }, { strokeDasharray: "1 1", strokeDashoffset: 0 }], 1400, delay + index * 100, "ease-in-out")
-          })
-        } else if (effect === "write") {
-          const letters = Array.from(element.querySelectorAll("[data-ink]"))
-          const step = Math.min(24, 1400 / Math.max(1, letters.length))
-          letters.forEach((letter, index) => play(letter, [{ opacity: 0 }, { opacity: 1 }], 60, delay + index * step, "steps(1, end)"))
-        } else {
-          const { keyframes, duration } = entrance(effect)
-          play(element, keyframes, duration, delay)
+      function complete(item: Item) {
+        item.element.setAttribute("data-motion-state", "visible")
+        item.state = "done"
+        active.delete(item)
+        observer.unobserve(item.element)
+        for (const animation of item.animations) {
+          animation.onfinish = null
+          animation.cancel()
         }
+        item.animations = []
+        schedule()
+      }
+
+      function prepare(item: Item) {
+        function add(element: Element, frames: Keyframe[], duration: number, delay = 0, easing = ease) {
+          const animation = element.animate(frames, { duration, delay, easing, fill: "backwards" })
+          animation.pause()
+          animation.currentTime = 0
+          item.animations.push(animation)
+        }
+        if (item.effect === "draw") {
+          item.element.querySelectorAll("path").forEach((path, index) => {
+            add(path, [{ strokeDasharray: "1 1", strokeDashoffset: 1 }, { strokeDasharray: "1 1", strokeDashoffset: 0 }], 320, Math.min(index * 50, 150), "ease-in-out")
+          })
+        } else if (item.effect === "words") {
+          item.element.querySelectorAll(".scrap-written-word").forEach((word, index) => {
+            add(word, [{ opacity: 0, translate: "0 7px" }, { opacity: 1, translate: "0 0" }], 180, index * 85)
+          })
+        } else if (item.effect === "write") {
+          const letters = Array.from(item.element.querySelectorAll("[data-ink]"))
+          const step = Math.min(item.phase < 1 ? 24 : 16, 600 / Math.max(1, letters.length))
+          letters.forEach((letter, index) => add(letter, [{ opacity: 0 }, { opacity: 1 }], 32, index * step, "steps(1, end)"))
+        } else {
+          const { keyframes, duration } = entrance(item.effect)
+          add(item.element, keyframes, item.phase < 1 ? 260 : duration)
+        }
+        // First frames are now installed synchronously, including child ink.
+        item.element.setAttribute("data-motion-state", "visible")
+      }
+
+      function pump() {
+        frame = 0
+        if (disposed || active.size) return
+        // Only visible, queued items participate. Scrolling past an item completes
+        // it immediately, so a previous section cannot hold up the next one.
+        const queued = [...items.values()].filter(item => item.state === "queued")
+        const first = queued.find(item => {
+          const introduction = [...items.values()].find(candidate => candidate.section === item.section && candidate.phase === 0)
+          return !introduction || introduction.state !== "waiting" || introduction.element.getBoundingClientRect().top < window.innerHeight
+        })
+        if (!first) return
+        const sectionItems = queued.filter(item => item.section === first.section)
+        const phase = Math.min(...sectionItems.map(item => item.phase))
+        const batch = sectionItems.filter(item => item.phase === phase).sort((a, b) => a.order - b.order)
+        for (const item of batch) { item.state = "running"; active.add(item) }
+        batch.forEach((item, index) => {
+          if (!item.animations.length) { complete(item); return }
+          let remaining = item.animations.length
+          for (const animation of item.animations) {
+            const delay = Number(animation.effect?.getTiming().delay ?? 0)
+            animation.effect?.updateTiming({ delay: delay + Math.min(index * 60, 240) })
+            animation.onfinish = () => {
+              // No forward fill: cancelling restores normal styles, not inline locks.
+              animation.onfinish = null
+              animation.cancel()
+              if (--remaining === 0) complete(item)
+            }
+            animation.play()
+          }
+        })
       }
 
       const observer = new IntersectionObserver(entries => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          const config = waiting.get(entry.target)
-          if (config) reveal(entry.target, config.effect, config.delay)
-          waiting.delete(entry.target)
-          observer.unobserve(entry.target)
+          const item = items.get(entry.target)
+          if (!item || item.state === "done") continue
+          if (!entry.isIntersecting) {
+            if (item.state !== "waiting") complete(item)
+            continue
+          }
+          if (item.state === "waiting") {
+            item.state = "queued"
+            prepare(item)
+          }
         }
-      }, { threshold: .08, rootMargin: "0px 0px 24px 0px" })
+        schedule()
+      }, { threshold: .08, rootMargin: "0px 0px -24px 0px" })
 
       function register(root: Element) {
         const elements = [...(root.matches(selector) ? [root] : []), ...root.querySelectorAll(selector)]
         for (const element of elements) {
-          if (seen.has(element)) continue
-          seen.add(element)
+          if (items.has(element)) continue
           const target = targets.find(([match]) => element.matches(match))
           if (!target) continue
-          const [match, effect, delay] = target
-          const sequence = sequences.get(match) ?? 0
-          sequences.set(match, sequence + 1)
-          waiting.set(element, { effect, delay: delay + (sequence % 3) * 65 })
+          const [, effect, defaultPhase] = target
+          const configuredPhase = Number(element.getAttribute("data-motion-phase") ?? defaultPhase)
+          const phase = Number.isFinite(configuredPhase) ? configuredPhase : defaultPhase
+          element.removeAttribute("data-motion-state")
+          const section = element.matches(".scrap-header-inner")
+            ? page!.querySelector('[data-motion-section="hero"]') ?? page!
+            : element.closest("[data-motion-section]") ?? page!
+          items.set(element, { element, section, effect, phase, order: items.size, state: "waiting", animations: [] })
           observer.observe(element)
         }
       }
 
-      // Complete an entrance immediately when a user focuses or touches it.
-      // This also keeps shared-layout hobby modals clear of entrance transforms.
+      // Interaction always wins over choreography, including queued child text.
       function interact(event: Event) {
         if (!(event.target instanceof Element)) return
         const target = event.target
-        for (const [animation, element] of running) {
-          if (element.contains(target) || target.contains(element)) { animation.cancel(); running.delete(animation) }
-        }
-        for (const element of waiting.keys()) {
-          if (element.contains(target) || target.contains(element)) { observer.unobserve(element); waiting.delete(element) }
+        for (const item of items.values()) {
+          if (item.state !== "done" && (item.element.contains(target) || target.contains(item.element))) complete(item)
         }
       }
 
+      const doodles = setupDoodleScroll(page)
       register(page)
       const mutations = new MutationObserver(records => {
         for (const record of records) {
           record.addedNodes.forEach(node => { if (node instanceof Element) register(node) })
         }
-        for (const element of waiting.keys()) {
-          if (!element.isConnected) { observer.unobserve(element); waiting.delete(element) }
-        }
-        for (const [animation, element] of running) {
-          if (!element.isConnected) { animation.cancel(); running.delete(animation) }
+        doodles.refresh()
+        for (const [element, item] of items) {
+          if (!element.isConnected) { complete(item); items.delete(element) }
         }
       })
       mutations.observe(page, { childList: true, subtree: true })
       page.addEventListener("pointerdown", interact, true)
       page.addEventListener("focusin", interact)
+      root.setAttribute("data-scrap-motion", "active")
       dispose = () => {
+        disposed = true
+        root.setAttribute("data-scrap-motion", "idle")
+        cancelAnimationFrame(frame)
         observer.disconnect()
         mutations.disconnect()
+        doodles.dispose()
         page.removeEventListener("pointerdown", interact, true)
         page.removeEventListener("focusin", interact)
-        for (const animation of running.keys()) animation.cancel()
-        running.clear()
-        waiting.clear()
+        for (const item of items.values()) complete(item)
+        active.clear()
+        items.clear()
       }
     }
 

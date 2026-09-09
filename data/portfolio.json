@@ -1,0 +1,483 @@
+{
+  "site": {
+    "name": "Stephen Paul",
+    "brand": "Stephen Paul’s Workshop",
+    "monogram": "s.",
+    "language": "en",
+    "description": "The portfolio of Stephen Paul - designer, builder, and curious problem solver.",
+    "portfolioTitle": "Portfolio",
+    "portfolioDescription": "A collection of work, observations, and things that matter to Stephen Paul."
+  },
+  "navigation": {
+    "subtitle": "a little collection of me",
+    "brandLabel": "Stephen Paul's Workshop, back to top",
+    "mainLabel": "Main navigation",
+    "mobileLabel": "Mobile navigation",
+    "open": "Open navigation",
+    "close": "Close navigation",
+    "modeLabel": "Modes",
+    "modeAriaLabel": "Back to mode switch",
+    "contactLabel": "Say hello ↗",
+    "lightTheme": "Switch to light theme",
+    "darkTheme": "Switch to dark theme",
+    "links": [
+      {
+        "href": "#top",
+        "label": "The beginning"
+      },
+      {
+        "href": "#about",
+        "label": "The person"
+      },
+      {
+        "href": "#work",
+        "label": "The work"
+      },
+      {
+        "href": "#experience",
+        "label": "The journey"
+      },
+      {
+        "href": "#hobbies",
+        "label": "The sidelines"
+      },
+      {
+        "href": "#contact",
+        "label": "Say hello"
+      }
+    ]
+  },
+  "modeSwitch": {
+    "intro": "Choose your way in",
+    "eyebrow": "A portfolio in two parts",
+    "title": [
+      "A quick introduction,",
+      "or the scenic route."
+    ],
+    "normal": {
+      "label": "01 / Normal mode",
+      "description": [
+        "I have a few minutes —",
+        "show me who you are."
+      ]
+    },
+    "experience": {
+      "label": "02 / Experience mode",
+      "status": "Coming soon",
+      "description": [
+        "Show me how creative",
+        "you can get."
+      ]
+    }
+  },
+  "hero": {
+    "eyebrow": "Designer, builder & perpetual noticer",
+    "greeting": "Hello, I’m Stephen Paul.",
+    "title": "I make things",
+    "titleAccent": "make sense.",
+    "intro": "A designer with a builder’s curiosity. This is my corner of the internet—a collection of work, things I care about, and ideas still taking shape.",
+    "workLink": {
+      "label": "A few things I’ve made",
+      "href": "#work"
+    },
+    "aboutLink": {
+      "label": "A bit about me",
+      "href": "#about"
+    },
+    "signoff": "Glad you found your way here.",
+    "location": "Based in India · Open to the world",
+    "graphLabel": "IDEAS, IN PROGRESS",
+    "photo": {
+      "src": "/images/hobbies/photography.svg",
+      "alt": "Illustrated sunlit street with a quiet figure",
+      "caption": "Always looking a little closer.",
+      "index": "01 / EVERYDAY OBSERVATIONS"
+    },
+    "noteLabel": "A thought I keep coming back to",
+    "nextNoteLabel": "Read another studio thought",
+    "notes": [
+      "Good questions make better starting points.",
+      "A small prototype is worth a very long meeting.",
+      "Leave things a little clearer than you found them."
+    ],
+    "stamp": [
+      "MADE WITH",
+      "CURIOSITY"
+    ]
+  },
+  "about": {
+    "chapter": {
+      "number": "01",
+      "label": "The person",
+      "title": "A little context.",
+      "aside": "There’s a person behind the pixels."
+    },
+    "profile": {
+      "role": "Designer + builder",
+      "facts": [
+        {
+          "label": "HOME BASE",
+          "value": "India"
+        },
+        {
+          "label": "DEFAULT SETTING",
+          "value": "Curious"
+        },
+        {
+          "label": "FAVOURITE QUESTION",
+          "value": "What if?"
+        }
+      ]
+    },
+    "title": "I like the space between",
+    "titleSecondLine": "“what if” and",
+    "titleAccent": "“it works.”",
+    "paragraphs": [
+      "I’m drawn to complicated things that don’t need to feel complicated. My work connects product thinking, visual design, and front-end craft to make everyday experiences a little more human.",
+      "I enjoy getting my hands into the details: finding the structure, trying a few directions, and staying close to the build."
+    ],
+    "skills": [
+      "Product design",
+      "Visual systems",
+      "Prototyping",
+      "Front-end craft"
+    ],
+    "principlesLabel": "Things I believe about the work",
+    "principles": [
+      {
+        "title": "Ask better questions.",
+        "text": "I start with the person on the other side of the screen. What are they trying to do, and what is getting in their way?"
+      },
+      {
+        "title": "Make the idea tangible.",
+        "text": "Sketches, prototypes, and working code turn assumptions into something we can actually discuss and improve."
+      },
+      {
+        "title": "Care about the last 10%.",
+        "text": "The empty state, the loading moment, the handoff. Small details are often where a thoughtful product earns trust."
+      }
+    ]
+  },
+  "work": {
+    "chapter": {
+      "number": "02",
+      "label": "The work",
+      "title": "A few things I’ve made.",
+      "aside": "From the working pile."
+    },
+    "labels": {
+      "open": "View {title} case study",
+      "imageAlt": "{title} concept artwork",
+      "read": "Inside the project",
+      "file": "Project file",
+      "role": "My role",
+      "timeframe": "Timeframe",
+      "outcomes": "What came out of it"
+    },
+    "projects": [
+      {
+        "title": "Field Notes",
+        "description": "A calmer research workspace that turns scattered observations into useful product decisions.",
+        "overview": "Field Notes explores how product teams can keep the nuance of raw research without losing the speed of a shared workspace. The system connects observations, themes, and decisions without forcing every study into the same rigid template.",
+        "tags": [
+          "Product design",
+          "Research",
+          "React"
+        ],
+        "thumbnail": "/images/projects/field-notes.svg",
+        "year": "2026",
+        "role": "Product design · Front-end prototype",
+        "timeline": "8 weeks",
+        "outcomes": [
+          "Reduced the path from note to insight",
+          "Created a flexible evidence model",
+          "Tested the workflow with a clickable prototype"
+        ],
+        "links": [
+          {
+            "label": "Request full case study",
+            "href": "mailto:hello@example.com?subject=Field Notes case study"
+          }
+        ]
+      },
+      {
+        "title": "Common Ground",
+        "description": "An identity and digital home for a neighborhood initiative built around shared local resources.",
+        "overview": "A warm, practical identity system for an initiative that helps neighbors share spaces, tools, and time. The work spans positioning, visual language, service touchpoints, and a small editorial website.",
+        "tags": [
+          "Brand system",
+          "Web design",
+          "Strategy"
+        ],
+        "thumbnail": "/images/projects/common-ground.svg",
+        "year": "2025",
+        "role": "Brand strategy · Design direction",
+        "timeline": "10 weeks",
+        "outcomes": [
+          "Unified six community programs",
+          "Built an accessible visual toolkit",
+          "Established a repeatable editorial system"
+        ],
+        "links": [
+          {
+            "label": "Ask about the project",
+            "href": "mailto:hello@example.com?subject=Common Ground project"
+          }
+        ]
+      },
+      {
+        "title": "Signal / Noise",
+        "description": "A focused monitoring tool that helps small teams see the changes that actually need attention.",
+        "overview": "Signal / Noise is a dashboard concept designed around attention rather than volume. It groups related changes, explains why they matter, and gives teams a calmer way to move from notification to action.",
+        "tags": [
+          "UX",
+          "Prototyping",
+          "TypeScript"
+        ],
+        "thumbnail": "/images/projects/signal-noise.svg",
+        "year": "2025",
+        "role": "UX design · Interaction prototype",
+        "timeline": "6 weeks",
+        "outcomes": [
+          "Prioritized changes by consequence",
+          "Designed progressive detail states",
+          "Validated navigation across screen sizes"
+        ],
+        "links": [
+          {
+            "label": "Request prototype access",
+            "href": "mailto:hello@example.com?subject=Signal / Noise prototype"
+          }
+        ]
+      },
+      {
+        "title": "After Hours",
+        "description": "An editorial archive for conversations with people who keep making things after the workday ends.",
+        "overview": "An independent editorial experiment about creative lives that do not fit neatly into job titles. Each issue pairs a long-form conversation with studio fragments, reading lists, and process notes.",
+        "tags": [
+          "Editorial",
+          "Art direction",
+          "Development"
+        ],
+        "thumbnail": "/images/projects/after-hours.svg",
+        "year": "2024",
+        "role": "Concept · Art direction · Build",
+        "timeline": "Ongoing",
+        "outcomes": [
+          "Created a flexible issue format",
+          "Balanced long-form reading with visual pacing",
+          "Built a lightweight publishing workflow"
+        ],
+        "links": [
+          {
+            "label": "Discuss the archive",
+            "href": "mailto:hello@example.com?subject=After Hours archive"
+          }
+        ]
+      }
+    ]
+  },
+  "journey": {
+    "chapter": {
+      "number": "03",
+      "label": "The journey",
+      "title": "Still writing this part.",
+      "aside": "A work in progress, in the best way."
+    },
+    "experienceLabel": "Experience / Chapter one",
+    "experience": [
+      {
+        "company": "Independent practice",
+        "role": "Product designer & builder",
+        "period": "2024 — Now",
+        "summary": "Partnering with small teams to turn early ideas and difficult product problems into clear, testable experiences.",
+        "highlights": [
+          "Product direction and interaction design",
+          "Design systems and working prototypes",
+          "Close collaboration from framing through launch"
+        ]
+      }
+    ],
+    "education": {
+      "institution": "University / Design School",
+      "qualification": "Degree or programme title",
+      "period": "20XX — 20XX",
+      "note": "A foundation in visual communication, interaction, and the habit of testing ideas through making.",
+      "focus": [
+        "Interaction and systems",
+        "Visual communication",
+        "Research-led practice"
+      ],
+      "label": "The foundations",
+      "title": "Always a student.",
+      "signoff": [
+        "Learning by asking questions,",
+        "and by making things."
+      ]
+    },
+    "future": {
+      "label": "The next chapter",
+      "title": "A future",
+      "accent": "awaits.",
+      "href": "#contact"
+    }
+  },
+  "hobbies": {
+    "chapter": {
+      "number": "04",
+      "label": "The sidelines",
+      "title": "A life outside the browser.",
+      "aside": "A few of my favourite distractions."
+    },
+    "boardLabel": "Collected along the way.",
+    "moveLabel": "Move {title} card; use arrow keys to reposition",
+    "learnMore": "Learn more",
+    "modalLabel": "Off the clock",
+    "items": [
+      {
+        "id": "photography",
+        "label": "Photography",
+        "image": "/images/hobbies/photography.svg",
+        "description": "Odd light and quiet evidence.",
+        "detail": "Walking without a destination, collecting shopfronts, passing gestures, and the small evidence people leave behind. Photography keeps my attention honest: notice first, explain later.",
+        "facts": [
+          "Street and observational",
+          "Usually one lens",
+          "Always chasing late light"
+        ]
+      },
+      {
+        "id": "cycling",
+        "label": "Long rides",
+        "image": "/images/hobbies/cycling.svg",
+        "description": "The longer road to a distant tea stop.",
+        "detail": "The best reset I know: choose a distant tea stop, take the longer road, and let the useful thoughts arrive late. Distance has a way of making difficult problems less dramatic.",
+        "facts": [
+          "Early starts",
+          "Unnecessary detours",
+          "Tea is the destination"
+        ]
+      },
+      {
+        "id": "music",
+        "label": "Albums, in order",
+        "image": "/images/hobbies/music.svg",
+        "description": "Side A, pause, then side B.",
+        "detail": "I still like records as complete objects: sequence, cover, liner notes, and the pause before side B. Shuffle has its place, but listening in order reveals the decisions between the songs.",
+        "facts": [
+          "Full albums",
+          "Headphones after midnight",
+          "Liner notes matter"
+        ]
+      },
+      {
+        "id": "cooking",
+        "label": "Cooking for people",
+        "image": "/images/hobbies/cooking.svg",
+        "description": "Recipes as scaffolding, not law.",
+        "detail": "Recipes are useful scaffolding. The real pleasure is adjusting by smell, feeding a table, and trying to remember what changed when everyone asks how to make it again.",
+        "facts": [
+          "Feeds too many",
+          "Measures approximately",
+          "Cleans as it cooks"
+        ]
+      },
+      {
+        "id": "reading",
+        "label": "Marginalia",
+        "image": "/images/hobbies/reading.svg",
+        "description": "Books worth arguing with.",
+        "detail": "Essays, speculative fiction, design history, and books with enough room around the sentences to argue in the margins. A good underline is a conversation postponed.",
+        "facts": [
+          "Essays and fiction",
+          "Pencil, never pen",
+          "More bookmarks than time"
+        ]
+      },
+      {
+        "id": "video-games",
+        "label": "Video games",
+        "image": "/images/hobbies/video-games.svg",
+        "description": "Good systems, strange worlds.",
+        "detail": "I like games that make a world feel coherent: a tiny rule set, a surprising consequence, and just enough room to get lost. They are little laboratories for curiosity and atmosphere.",
+        "facts": [
+          "Story-rich worlds",
+          "Indie and co-op",
+          "One more round"
+        ]
+      },
+      {
+        "id": "sketching",
+        "label": "Loose sketches",
+        "image": "/images/hobbies/sketching.svg",
+        "description": "Hands moving before ideas settle.",
+        "detail": "A page of bad drawings is often the shortest route to one useful shape. I sketch interfaces, rooms, machines, and whatever is nearby when a thought needs somewhere to land.",
+        "facts": [
+          "Pen and paper",
+          "Fast studies",
+          "No eraser required"
+        ]
+      },
+      {
+        "id": "film-nights",
+        "label": "Film nights",
+        "image": "/images/hobbies/film-nights.svg",
+        "description": "Good framing, better company.",
+        "detail": "A film night is part cinema, part ritual: dim lights, a shared bowl of something, and a story that stays in the room after the credits.",
+        "facts": [
+          "Old and odd",
+          "Big-screen whenever possible",
+          "Discusses the ending"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "A note to whoever’s next",
+    "title": "Something on your mind?",
+    "titleAccent": "I’d love to hear it.",
+    "description": [
+      "A project, a possibility, or just a good conversation.",
+      "My inbox has room for all three."
+    ],
+    "email": "hello@example.com",
+    "copyLabel": "Copy email address",
+    "copySuccess": "Copied to clipboard",
+    "copyError": "Select the email address to copy it.",
+    "signoff": "Until then, Stephen Paul.",
+    "stamp": {
+      "initials": "S.P.",
+      "caption": "BY LOVE"
+    },
+    "resume": {
+      "label": "My résumé",
+      "href": "/files/steve-resume-placeholder.pdf"
+    },
+    "socialLabel": "Social links",
+    "socials": [
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com",
+        "icon": "linkedin"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com",
+        "icon": "github"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com",
+        "icon": "instagram"
+      }
+    ],
+    "origin": "FROM INDIA, WITH CURIOSITY.",
+    "copyrightNote": "Always a work in progress.",
+    "backToTop": "Back to the beginning"
+  },
+  "ui": {
+    "skipToContent": "Skip to content",
+    "closeDetails": "Close details",
+    "detailsLabel": "{title} details"
+  }
+}

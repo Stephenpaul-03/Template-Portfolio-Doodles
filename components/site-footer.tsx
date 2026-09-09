@@ -5,21 +5,20 @@ import { ArrowUpRight, Check, Copy, Download, Github, Instagram, Linkedin } from
 import { Doodle, type DoodleName } from "@/components/margin-scribbles"
 import { Handwritten } from "@/components/handwritten"
 
-const email = "hello@example.com"
+import { content } from "@/data/content"
+
+const { contact, site } = content
+const { email, socials } = contact
+const socialIcons: Record<string, typeof Linkedin> = { linkedin: Linkedin, github: Github, instagram: Instagram }
 const footerDoodles: DoodleName[] = ["coffee", "sparkles", "plane", "orbit", "pencil"]
-const socials = [
-  { label: "LinkedIn", href: "https://www.linkedin.com", icon: Linkedin },
-  { label: "GitHub", href: "https://github.com", icon: Github },
-  { label: "Instagram", href: "https://www.instagram.com", icon: Instagram },
-]
 
 export function SiteFooter() {
   const [copyState, setCopyState] = useState("")
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   useEffect(() => () => { if (timeout.current) clearTimeout(timeout.current) }, [])
   async function copyEmail() {
-    try { await navigator.clipboard.writeText(email); setCopyState("Copied to clipboard") }
-    catch { setCopyState("Select the email address to copy it.") }
+    try { await navigator.clipboard.writeText(email); setCopyState(contact.copySuccess) }
+    catch { setCopyState(contact.copyError) }
     if (timeout.current) clearTimeout(timeout.current)
     timeout.current = setTimeout(() => setCopyState(""), 3000)
   }
@@ -28,25 +27,25 @@ export function SiteFooter() {
       <div className="scrap-letter">
         <div className="scrap-letter-main">
         <div className="scrap-letter-top">
-          <span className="scrap-label">A note to whoever’s next</span>
+          <span className="scrap-label">{contact.eyebrow}</span>
           <Doodle name="plane" className="scrap-letter-flight"/>
         </div>
-        <h2>Something on your mind?<br/><em>I’d love to hear it.</em></h2>
-        <p>A project, a possibility, or just a good conversation.<br/>My inbox has room for all three.</p>
+        <h2>{contact.title}<br/><em>{contact.titleAccent}</em></h2>
+        <p>{contact.description[0]}<br/>{contact.description[1]}</p>
         <div className="scrap-email-line">
           <a href={`mailto:${email}`}>{email}<ArrowUpRight size={24}/></a>
-          <button className="scrap-icon-button" onClick={copyEmail} aria-label="Copy email address">{copyState.startsWith("Copied") ? <Check size={16}/> : <Copy size={16}/>}</button>
+          <button className="scrap-icon-button" onClick={copyEmail} aria-label={contact.copyLabel}>{copyState === contact.copySuccess ? <Check size={16}/> : <Copy size={16}/>}</button>
         </div>
         <span className="scrap-copy-state" role="status">{copyState}</span>
         <div className="scrap-letter-signoff">
-          <Handwritten className="scrap-hand" text="Until then, Stephen Paul."/>
+          <Handwritten className="scrap-hand" text={contact.signoff}/>
         </div>
         </div>
         <div className="scrap-letter-rail">
-          <span className="scrap-postage" aria-hidden="true">S.P.<span>BY LOVE</span></span>
-          <a href="/files/steve-resume-placeholder.pdf" download className="scrap-resume-button scrap-button"><Download size={15}/>My résumé</a>
-        <nav className="scrap-letter-socials" aria-label="Social links">
-          {socials.map(({ label, href, icon: Icon }) => <a key={label} href={href}><Icon size={16} aria-hidden="true"/><span>{label}</span></a>)}
+          <span className="scrap-postage" aria-hidden="true">{contact.stamp.initials}<span>{contact.stamp.caption}</span></span>
+          <a href={contact.resume.href} download className="scrap-resume-button scrap-button"><Download size={15}/>{contact.resume.label}</a>
+        <nav className="scrap-letter-socials" aria-label={contact.socialLabel}>
+          {socials.map(({ label, href, icon }) => { const Icon = socialIcons[icon] ?? ArrowUpRight; return <a key={label} href={href}><Icon size={16} aria-hidden="true"/><span>{label}</span></a> })}
         </nav>
         </div>
         <div className="scrap-footer-flourish" aria-hidden="true">
@@ -55,10 +54,10 @@ export function SiteFooter() {
       </div>
       <div className="scrap-envelope-bottom">
         <Doodle name="sparkles" className="scrap-footer-base-doodle"/>
-        <a href="#top" className="scrap-footer-mini-brand"><span className="scrap-monogram">s.</span><span>Stephen Paul’s Workshop</span></a>
-        <span className="scrap-envelope-origin">FROM INDIA, WITH CURIOSITY.</span>
-        <span className="scrap-envelope-meta">© {new Date().getFullYear()} Stephen Paul · Always a work in progress.</span>
-        <a href="#top" className="scrap-envelope-back scrap-button" aria-label="Back to the beginning"><span className="scrap-envelope-back-label">Back to the beginning</span><span aria-hidden="true">↑</span></a>
+        <a href="#top" className="scrap-footer-mini-brand"><span className="scrap-monogram">{site.monogram}</span><span>{site.brand}</span></a>
+        <span className="scrap-envelope-origin">{contact.origin}</span>
+        <span className="scrap-envelope-meta">© {new Date().getFullYear()} {site.name} · {contact.copyrightNote}</span>
+        <a href="#top" className="scrap-envelope-back scrap-button" aria-label={contact.backToTop}><span className="scrap-envelope-back-label">{contact.backToTop}</span><span aria-hidden="true">↑</span></a>
         <Doodle name="waves" className="scrap-envelope-postmark" aria-hidden="true"/>
       </div>
     </div>

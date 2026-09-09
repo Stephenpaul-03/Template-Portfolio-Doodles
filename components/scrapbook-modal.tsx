@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { X } from "lucide-react"
+import { content, withTitle } from "@/data/content"
 import { useEffect, useRef, type ReactNode } from "react"
 
 export function ScrapbookModal({ title, onClose, children, layoutId }: { title: string; onClose: () => void; children: ReactNode; layoutId?: string }) {
@@ -37,8 +38,8 @@ export function ScrapbookModal({ title, onClose, children, layoutId }: { title: 
       initial={layoutId ? false : { y: reduced ? 0 : 35, scale: reduced ? 1 : 0.97 }}
       animate={{ y: 0, scale: 1 }} exit={{ y: reduced ? 0 : 22 }}
       transition={{ duration: reduced ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}>
-      <div className="scrap-dialog-bar"><span className="scrap-label">{title}</span><button className="scrap-icon-button" onClick={onClose} aria-label="Close details"><X size={18} /></button></div>
-      <motion.div layoutScroll className="scrap-dialog-content" tabIndex={0} role="region" aria-label={`${title} details`}>
+      <div className="scrap-dialog-bar"><span className="scrap-label">{title}</span><button className="scrap-icon-button" onClick={onClose} aria-label={content.ui.closeDetails}><X size={18} /></button></div>
+      <motion.div layoutScroll className="scrap-dialog-content" tabIndex={0} role="region" aria-label={withTitle(content.ui.detailsLabel, title)}>
         {children}
       </motion.div>
     </motion.div>

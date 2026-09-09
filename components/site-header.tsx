@@ -7,13 +7,11 @@ import Link from "next/link"
 import { useTheme } from "@/components/theme-provider"
 import { currentScrollSection } from "@/lib/scroll-navigation"
 
-const links = [
-  { href: "#about", label: "The person" },
-  { href: "#work", label: "The work" },
-  { href: "#experience", label: "The journey" },
-  { href: "#hobbies", label: "The sidelines" },
-]
-const allLinks = [{ href: "#top", label: "The beginning" }, ...links, { href: "#contact", label: "Say hello" }]
+import { content } from "@/data/content"
+
+const { navigation, site } = content
+const allLinks = navigation.links
+const links = allLinks.filter(link => link.href !== "#top" && link.href !== "#contact")
 
 export function SiteHeader() {
   const [compact, setCompact] = useState(false)
@@ -68,11 +66,11 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", escape)
   }, [open])
 
-  const currentLabel = allLinks.find(link => link.href === `#${active}`)?.label ?? "The beginning"
+  const currentLabel = allLinks.find(link => link.href === `#${active}`)?.label ?? allLinks[0].label
   return <header ref={header} className={`scrap-header ${compact ? "is-compact" : ""}`}>
     <div className="scrap-header-inner">
-      <a className="scrap-brand" href="#top" aria-label="Stephen Paul's Workshop, back to top"><span className="scrap-monogram">s.</span><span>Stephen Paul’s Workshop<span className="scrap-brand-sub">{compact ? currentLabel : "a little collection of me"}</span></span></a>
-      <nav aria-label="Main navigation" className="scrap-desktop-nav">{links.map(link => {
+      <a className="scrap-brand" href="#top" aria-label={navigation.brandLabel}><span className="scrap-monogram">{site.monogram}</span><span>{site.brand}<span className="scrap-brand-sub">{compact ? currentLabel : navigation.subtitle}</span></span></a>
+      <nav aria-label={navigation.mainLabel} className="scrap-desktop-nav">{links.map(link => {
         const selected = link.href === `#${active}`
         return <a key={link.href} href={link.href} aria-current={selected ? "location" : undefined}>
           <AnimatePresence>
@@ -84,12 +82,12 @@ export function SiteHeader() {
         </a>
       })}</nav>
       <div className="scrap-header-actions">
-        <Link href="/" className="scrap-mode-link" aria-label="Back to mode switch"><ArrowLeft size={14}/><span>Modes</span></Link>
-        <button className="scrap-icon-button" onClick={toggleTheme} aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}>{theme === "light" ? <Moon size={16}/> : <Sun size={16}/>}</button>
-        <a href="#contact" className="scrap-header-contact" aria-current={active === "contact" ? "location" : undefined}>Say hello ↗</a>
-        <button ref={menu} className="scrap-icon-button scrap-menu-toggle" aria-controls="scrap-menu" aria-expanded={open} onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"}>{open ? <X size={18}/> : <Menu size={18}/>}</button>
+        <Link href="/" className="scrap-mode-link" aria-label={navigation.modeAriaLabel}><ArrowLeft size={14}/><span>{navigation.modeLabel}</span></Link>
+        <button className="scrap-icon-button" onClick={toggleTheme} aria-label={theme === "light" ? navigation.darkTheme : navigation.lightTheme}>{theme === "light" ? <Moon size={16}/> : <Sun size={16}/>}</button>
+        <a href="#contact" className="scrap-header-contact" aria-current={active === "contact" ? "location" : undefined}>{navigation.contactLabel}</a>
+        <button ref={menu} className="scrap-icon-button scrap-menu-toggle" aria-controls="scrap-menu" aria-expanded={open} onClick={() => setOpen(!open)} aria-label={open ? navigation.close : navigation.open}>{open ? <X size={18}/> : <Menu size={18}/>}</button>
       </div>
     </div>
-    {open && <nav id="scrap-menu" className="scrap-mobile-nav" aria-label="Mobile navigation">{allLinks.map(link => <a key={link.href} href={link.href} aria-current={link.href === `#${active}` ? "location" : undefined} onClick={() => setOpen(false)}>{link.label}<span>↗</span></a>)}</nav>}
+    {open && <nav id="scrap-menu" className="scrap-mobile-nav" aria-label={navigation.mobileLabel}>{allLinks.map(link => <a key={link.href} href={link.href} aria-current={link.href === `#${active}` ? "location" : undefined} onClick={() => setOpen(false)}>{link.label}<span>↗</span></a>)}</nav>}
   </header>
 }

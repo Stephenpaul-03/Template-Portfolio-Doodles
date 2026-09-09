@@ -55,6 +55,7 @@
 .scrap-about-copy .scrap-tags span:nth-child(4n + 2) { background: #ffd5b8; }
 .scrap-about-copy .scrap-tags span:nth-child(4n + 3) { background: #c2e6cc; }
 .scrap-about-copy .scrap-tags span:nth-child(4n) { background: #e0c6f2; }
+.scrap-career-entries { display: grid; gap: 24px; }
 .scrap-career-page { border-left: 7px solid var(--color-blue); }
 .scrap-education { --ink: #382c4d; --quiet: #554165; --rule: #ad93ca; --red: #633789; background-color: #dac5f2; color: var(--ink); }
 .scrap-future-title em { background: linear-gradient(transparent 77%, var(--color-coral) 77% 89%, transparent 89%); }
