@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
+import type Lenis from "lenis"
+import { useLenis } from "lenis/react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { ArrowLeft, Menu, Moon, Sun, X } from "lucide-react"
 import Link from "next/link"
@@ -22,26 +24,31 @@ export function SiteHeader() {
   const reduced = useReducedMotion()
   const { theme, toggleTheme } = useTheme()
 
-  useEffect(() => {
-    let frame = 0
+  const updateScrollState = useCallback((scrollPosition: number) => {
     const sections = allLinks.flatMap(link => {
       const element = document.getElementById(link.href.slice(1))
       return element ? [{ id: link.href.slice(1), element }] : []
     })
-    function update() {
-      frame = 0
-      const headerBottom = header.current?.getBoundingClientRect().bottom ?? 90
-      const titleTop = document.getElementById("hero-title")?.getBoundingClientRect().top ?? Infinity
-      setCompact(window.scrollY > 0 && titleTop <= headerBottom)
-      const readingLine = headerBottom + Math.min(120, window.innerHeight * 0.15)
-      const atBottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4
-      setActive(currentScrollSection(sections.map(({ id, element }) => ({ id, top: element.getBoundingClientRect().top })), readingLine, atBottom))
-    }
+    const headerBottom = header.current?.getBoundingClientRect().bottom ?? 90
+    const titleTop = document.getElementById("hero-title")?.getBoundingClientRect().top ?? Infinity
+    setCompact(scrollPosition > 0 && titleTop <= headerBottom)
+    const readingLine = headerBottom + Math.min(120, window.innerHeight * 0.15)
+    const atBottom = scrollPosition > 0 && scrollPosition + window.innerHeight >= document.documentElement.scrollHeight - 4
+    setActive(currentScrollSection(sections.map(({ id, element }) => ({ id, top: element.getBoundingClientRect().top })), readingLine, atBottom))
+  }, [])
+
+  const onLenisScroll = useCallback((lenis: Lenis) => updateScrollState(lenis.scroll), [updateScrollState])
+  const lenis = useLenis(onLenisScroll, [onLenisScroll], 10)
+
+  useEffect(() => {
+    let frame = 0
     function schedule() {
-      if (!frame) frame = requestAnimationFrame(update)
+      if (!frame) frame = requestAnimationFrame(() => {
+        frame = 0
+        updateScrollState(lenis?.scroll ?? window.scrollY)
+      })
     }
-    update()
-    window.addEventListener("scroll", schedule, { passive: true })
+    schedule()
     window.addEventListener("resize", schedule)
     window.addEventListener("hashchange", schedule)
     window.addEventListener("pageshow", schedule)
@@ -51,12 +58,11 @@ export function SiteHeader() {
     return () => {
       cancelAnimationFrame(frame)
       observer.disconnect()
-      window.removeEventListener("scroll", schedule)
       window.removeEventListener("resize", schedule)
       window.removeEventListener("hashchange", schedule)
       window.removeEventListener("pageshow", schedule)
     }
-  }, [])
+  }, [lenis, updateScrollState])
 
   useEffect(() => {
     function escape(event: KeyboardEvent) {

@@ -94,6 +94,10 @@ html {
   scroll-padding-top: 5rem;
 }
 
+html.lenis {
+  scroll-behavior: auto;
+}
+
 body {
   margin: 0;
   background: var(--background);

@@ -1,6 +1,6 @@
 # Stephen Paul's Workshop
 
-A two-path portfolio built with Next.js 15, the App Router, TypeScript, Tailwind CSS 4, and shadcn/ui.
+A two-path portfolio built with Next.js 15, the App Router, TypeScript, Tailwind CSS 4, shadcn/ui, Framer Motion, and Lenis.
 
 ## Routes
 
@@ -39,6 +39,8 @@ Keep note/principle collections nonempty. Fields containing two display lines (s
 Save during `npm run dev` to refresh the content. Production changes require a rebuild/redeploy. Run `npm test` to catch missing local assets, invalid links/IDs, or accidentally hardcoded component copy.
 
 ## Animation sequencing
+
+Normal Mode has one root Lenis instance in `components/portfolio-scroll.tsx`. It handles smooth wheel scrolling and anchor navigation, respects reduced-motion preferences, and runs on Framer Motion's frame loop. Header section tracking, chapter rules, card entrance checks, and doodle timelines subscribe to Lenis updates. Modals stop the page instance while open, their detail panel retains native nested scrolling, and draggable hobby cards opt out of Lenis touch capture.
 
 Timed entrances cover the introduction, content/paper, and handwritten notes. Doodles are independently scrubbed by scroll position, not played on a timer. Within the introduction, the hero eyebrow, letter-by-letter greeting, word-by-word headline lines, description, and links have separate ordered phases. The accent underline draws only after its words finish; the header then fades in with the introduction. Chapter titles also reveal word by word. Related cards stagger lightly within their beat; different beats never run concurrently.
 

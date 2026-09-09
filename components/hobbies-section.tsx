@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
 import { createPortal } from "react-dom"
 import { ScrapbookModal } from "@/components/scrapbook-modal"
 import { Chapter } from "@/components/scrapbook-ui"
+import { useLenisReveal } from "@/components/lenis-reveal"
 
 import { content, withTitle, type Hobby } from "@/data/content"
 
@@ -19,6 +20,7 @@ function BoardCard({ hobby, index, board, selected, onSelect, bringForward, z }:
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const reduced = useReducedMotion()
+  const reveal = useLenisReveal({ index, variant: "paper" })
   const clamp = useCallback(() => {
     if (!card.current || !board.current) return
     const bounds = board.current.getBoundingClientRect(), item = card.current.getBoundingClientRect()
@@ -30,8 +32,8 @@ function BoardCard({ hobby, index, board, selected, onSelect, bringForward, z }:
     if (board.current) observer.observe(board.current)
     return () => observer.disconnect()
   }, [board, clamp])
-  return <motion.div ref={card} className={`scrap-board-item scrap-board-item-${index % 8}`} style={{ x, y, zIndex: z }} drag dragControls={controls} dragListener={false} dragConstraints={board} dragMomentum={false} dragElastic={0} onDragStart={bringForward} onDragEnd={clamp}>
-    {!selected && <motion.article layoutId={reduced ? undefined : `scrap-hobby-${hobby.id}`} className="scrap-hobby-card" transition={{ layout: { duration: reduced ? 0 : 0.42 } }}>
+  return <motion.div ref={card} data-lenis-prevent-touch className={`scrap-board-item scrap-board-item-${index % 8}`} style={{ x, y, zIndex: z }} drag dragControls={controls} dragListener={false} dragConstraints={board} dragMomentum={false} dragElastic={0} onDragStart={bringForward} onDragEnd={clamp}>
+    {!selected && <motion.article ref={reveal.ref} data-lenis-reveal="paper" style={reveal.style} layoutId={reduced ? undefined : `scrap-hobby-${hobby.id}`} className="scrap-hobby-card" transition={{ layout: { duration: reduced ? 0 : 0.42 } }}>
       <button className="scrap-drag-handle" aria-label={withTitle(copy.moveLabel, hobby.label)} onPointerDown={event => { bringForward(); controls.start(event) }} onKeyDown={event => {
         const offsets: Record<string, [number, number]> = { ArrowLeft: [-16, 0], ArrowRight: [16, 0], ArrowUp: [0, -16], ArrowDown: [0, 16] }
         const offset = offsets[event.key]

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { ArrowUpRight, Check, Copy, Download, Github, Instagram, Linkedin } from "lucide-react"
 import { Doodle, type DoodleName } from "@/components/margin-scribbles"
 import { Handwritten } from "@/components/handwritten"
+import { LenisReveal } from "@/components/lenis-reveal"
 
 import { content } from "@/data/content"
 
@@ -25,7 +26,7 @@ export function SiteFooter() {
   return <footer id="contact" className="scrap-footer"><div className="scrap-container">
     <div className="scrap-envelope">
       <div className="scrap-letter">
-        <div className="scrap-letter-main">
+        <LenisReveal variant="left" className="scrap-letter-main">
         <div className="scrap-letter-top">
           <span className="scrap-label">{contact.eyebrow}</span>
           <Doodle name="plane" className="scrap-letter-flight"/>
@@ -40,26 +41,26 @@ export function SiteFooter() {
         <div className="scrap-letter-signoff">
           <Handwritten className="scrap-hand" text={contact.signoff}/>
         </div>
-        </div>
-        <div className="scrap-letter-rail">
+        </LenisReveal>
+        <LenisReveal variant="right" index={1} className="scrap-letter-rail">
           <span className="scrap-postage" aria-hidden="true">{contact.stamp.initials}<span>{contact.stamp.caption}</span></span>
-          <a href={contact.resume.href} download className="scrap-resume-button scrap-button"><Download size={15}/>{contact.resume.label}</a>
+          <a href={contact.resume.href} download className="scrap-resume-button"><Download size={15}/>{contact.resume.label}</a>
         <nav className="scrap-letter-socials" aria-label={contact.socialLabel}>
           {socials.map(({ label, href, icon }) => { const Icon = socialIcons[icon] ?? ArrowUpRight; return <a key={label} href={href}><Icon size={16} aria-hidden="true"/><span>{label}</span></a> })}
         </nav>
-        </div>
+        </LenisReveal>
         <div className="scrap-footer-flourish" aria-hidden="true">
           {footerDoodles.map(name => <Doodle key={name} name={name}/>)}
         </div>
       </div>
-      <div className="scrap-envelope-bottom">
+      <LenisReveal variant="text" index={2} className="scrap-envelope-bottom">
         <Doodle name="sparkles" className="scrap-footer-base-doodle"/>
         <a href="#top" className="scrap-footer-mini-brand"><span className="scrap-monogram">{site.monogram}</span><span>{site.brand}</span></a>
         <span className="scrap-envelope-origin">{contact.origin}</span>
         <span className="scrap-envelope-meta">© {new Date().getFullYear()} {site.name} · {contact.copyrightNote}</span>
         <a href="#top" className="scrap-envelope-back scrap-button" aria-label={contact.backToTop}><span className="scrap-envelope-back-label">{contact.backToTop}</span><span aria-hidden="true">↑</span></a>
         <Doodle name="waves" className="scrap-envelope-postmark" aria-hidden="true"/>
-      </div>
+      </LenisReveal>
     </div>
   </div></footer>
 }

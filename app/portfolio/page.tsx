@@ -10,13 +10,14 @@ import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { WorkSection } from "@/components/work-section"
 import { ScrapbookMotion } from "@/components/scrapbook-motion"
+import { PortfolioScroll } from "@/components/portfolio-scroll"
 import "./scrapbook.css"
 import "./scrapbook-personality.css"
 
 export const metadata: Metadata = { title: content.site.portfolioTitle, description: content.site.portfolioDescription }
 
 export default function PortfolioPage() {
-  return <div id="scrapbook-page" className="scrapbook">
+  return <PortfolioScroll><div id="scrapbook-page" className="scrapbook">
     <a className="scrap-skip" href="#main-content">{content.ui.skipToContent}</a>
     <div id="top"/>
     <SiteHeader/>
@@ -29,5 +30,5 @@ export default function PortfolioPage() {
       <HobbiesSection/>
     </main>
     <div className="scrap-margin-section" data-motion-section><MarginScribbles variant={4}/><SiteFooter/></div>
-  </div>
+  </div></PortfolioScroll>
 }

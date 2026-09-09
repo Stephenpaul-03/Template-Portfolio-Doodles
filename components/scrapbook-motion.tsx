@@ -1,6 +1,7 @@
 "use client"
 
-import { useLayoutEffect } from "react"
+import { useLayoutEffect, useRef } from "react"
+import { useLenis } from "lenis/react"
 import { setupDoodleScroll } from "@/lib/doodle-scroll"
 import { motionTargets as targets, motionSelector as selector, type MotionEffect as Effect } from "@/lib/scrapbook-motion-config"
 
@@ -46,6 +47,13 @@ function entrance(effect: Effect): { keyframes: Keyframe[]; duration: number } {
 // CSS holds the first frame before hydration; the controller hands each target
 // to WAAPI before releasing that gate. Individual transforms preserve card dragging.
 export function ScrapbookMotion() {
+  const doodlesRef = useRef<ReturnType<typeof setupDoodleScroll> | null>(null)
+  const syncViewportRef = useRef<(() => void) | null>(null)
+  useLenis((lenis) => {
+    doodlesRef.current?.update(lenis.scroll, lenis.limit)
+    syncViewportRef.current?.()
+  }, [], -20)
+
   useLayoutEffect(() => {
     const page = document.getElementById("scrapbook-page")
     if (!page || !window.matchMedia || !("IntersectionObserver" in window) || !Element.prototype.animate) return
@@ -105,6 +113,14 @@ export function ScrapbookMotion() {
         } else {
           const { keyframes, duration } = entrance(item.effect)
           add(item.element, keyframes, item.phase < 1 ? 260 : duration)
+          if (item.effect === "paper") {
+            item.element.querySelectorAll(".scrap-tape").forEach(tape => {
+              add(tape, [
+                { opacity: 0, scale: "0 1", transformOrigin: "left center" },
+                { opacity: 1, scale: "1 1", transformOrigin: "left center" },
+              ], 260, duration)
+            })
+          }
         }
         // First frames are now installed synchronously, including child ink.
         item.element.setAttribute("data-motion-state", "visible")
@@ -142,6 +158,23 @@ export function ScrapbookMotion() {
         })
       }
 
+      function syncViewport() {
+        const viewportBottom = window.innerHeight - 24
+        for (const item of items.values()) {
+          if (item.state === "done") continue
+          const rect = item.element.getBoundingClientRect()
+          const bottom = Number.isFinite(rect.bottom) ? rect.bottom : rect.top + 1
+          const visible = rect.top < viewportBottom && bottom > 0
+          if (visible && item.state === "waiting") {
+            item.state = "queued"
+            prepare(item)
+          } else if (!visible && item.state !== "waiting") {
+            complete(item)
+          }
+        }
+        schedule()
+      }
+
       const observer = new IntersectionObserver(entries => {
         for (const entry of entries) {
           const item = items.get(entry.target)
@@ -162,6 +195,8 @@ export function ScrapbookMotion() {
         const elements = [...(root.matches(selector) ? [root] : []), ...root.querySelectorAll(selector)]
         for (const element of elements) {
           if (items.has(element)) continue
+          // Scroll-scrubbed notes own their reversible lifecycle through Lenis.
+          if (element.matches(".scrap-scroll-postit")) continue
           const target = targets.find(([match]) => element.matches(match))
           if (!target) continue
           const [, effect, defaultPhase] = target
@@ -186,6 +221,8 @@ export function ScrapbookMotion() {
       }
 
       const doodles = setupDoodleScroll(page)
+      doodlesRef.current = doodles
+      syncViewportRef.current = syncViewport
       register(page)
       const mutations = new MutationObserver(records => {
         for (const record of records) {
@@ -207,6 +244,8 @@ export function ScrapbookMotion() {
         observer.disconnect()
         mutations.disconnect()
         doodles.dispose()
+        if (doodlesRef.current === doodles) doodlesRef.current = null
+        if (syncViewportRef.current === syncViewport) syncViewportRef.current = null
         page.removeEventListener("pointerdown", interact, true)
         page.removeEventListener("focusin", interact)
         for (const item of items.values()) complete(item)

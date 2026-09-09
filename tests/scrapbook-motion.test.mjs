@@ -12,7 +12,7 @@ const config = {}
 vm.runInNewContext(ts.transpileModule(configSource, { compilerOptions }).outputText, { exports: config })
 
 function setup(reduced = false, rootState = reduced ? null : "pending") {
-  const animations = [], observers = [], mutations = [], events = [], frames = new Map()
+  const animations = [], observers = [], mutations = [], events = [], frames = new Map(), lenisCallbacks = []
   let nextFrame = 0
   class Element {
     constructor(selectors = [], children = [], attributes = {}) {
@@ -99,9 +99,10 @@ function setup(reduced = false, rootState = reduced ? null : "pending") {
     document: { getElementById: () => page, documentElement: html },
     require: name => {
       if (name === "@/lib/scrapbook-motion-config") return config
-      if (name === "@/lib/doodle-scroll") return { setupDoodleScroll: () => { const lifecycle = { refreshed: 0, disposed: false, refresh() { this.refreshed++ }, dispose() { this.disposed = true } }; doodleLifecycles.push(lifecycle); return lifecycle } }
+      if (name === "@/lib/doodle-scroll") return { setupDoodleScroll: () => { const lifecycle = { refreshed: 0, updates: [], disposed: false, refresh() { this.refreshed++ }, update(scroll, limit) { this.updates.push([scroll, limit]) }, dispose() { this.disposed = true } }; doodleLifecycles.push(lifecycle); return lifecycle } }
+      if (name === "lenis/react") return { useLenis: callback => { lenisCallbacks.push(callback) } }
       assert.equal(name, "react")
-      return { useLayoutEffect: effect => { cleanup = effect() } }
+      return { useLayoutEffect: effect => { cleanup = effect() }, useRef: initial => ({ current: initial }) }
     },
   })
   exports.ScrapbookMotion()
@@ -109,7 +110,7 @@ function setup(reduced = false, rootState = reduced ? null : "pending") {
   function finishPlaying() { animations.filter(animation => animation.played && !animation.cancelled).forEach(animation => animation.finish()); tick() }
   const playing = () => animations.filter(animation => animation.played && !animation.cancelled).map(animation => animation.element)
   const isGated = element => !preference.matches && ["pending", "active"].includes(html.getAttribute("data-scrap-motion")) && element.getAttribute("data-motion-state") !== "visible"
-  return { Element, page, html, section, secondHeading, heading, note, writing, ink, underline, doodle, header, doodleLifecycles, path, preference, animations, observers, mutations, events, frames, cleanup, tick, finishPlaying, playing, isGated }
+  return { Element, page, html, section, secondHeading, heading, note, writing, ink, underline, doodle, header, doodleLifecycles, lenisCallbacks, path, preference, animations, observers, mutations, events, frames, cleanup, tick, finishPlaying, playing, isGated }
 }
 
 test("reduced motion leaves content visible without registering entrances", () => {
@@ -383,9 +384,13 @@ test("doodles use an independent scroll lifecycle, never the timed entrance queu
   const env = setup()
   assert.equal(env.doodleLifecycles.length, 1)
   assert.equal(env.observers[0].elements.has(env.doodle), false)
+  env.lenisCallbacks[0]({ scroll: 320, limit: 2400 })
+  assert.deepEqual(env.doodleLifecycles[0].updates, [[320, 2400]])
+  const animationCount = env.animations.length
   env.observers[0].enter(env.doodle)
   env.tick()
-  assert.equal(env.animations.length, 0)
+  assert.equal(env.animations.length, animationCount)
+  assert.ok(env.animations.every(animation => animation.element !== env.doodle))
   env.mutations[0].callback([{ addedNodes: [] }])
   assert.equal(env.doodleLifecycles[0].refreshed, 1)
   env.preference.matches = true
@@ -395,4 +400,18 @@ test("doodles use an independent scroll lifecycle, never the timed entrance queu
   const reduced = setup(true)
   assert.equal(reduced.doodleLifecycles.length, 0)
   reduced.cleanup()
+})
+
+test("Lenis scroll frames drive offscreen card entrance checks", () => {
+  const env = setup()
+  for (const target of [env.header, env.heading, env.note, env.writing, env.underline]) target.top = 1000
+  env.secondHeading.top = 1000
+  env.lenisCallbacks[0]({ scroll: 0, limit: 2400 })
+  env.tick()
+  assert.equal(env.playing().includes(env.secondHeading), false)
+  env.secondHeading.top = 300
+  env.lenisCallbacks[0]({ scroll: 700, limit: 2400 })
+  env.tick()
+  assert.equal(env.playing().includes(env.secondHeading), true)
+  env.cleanup()
 })

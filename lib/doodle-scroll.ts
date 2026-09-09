@@ -16,12 +16,12 @@ export function setupDoodleScroll(page: Element) {
   let frame = 0
   let disposed = false
 
-  function update() {
+  function update(scrollPosition = window.scrollY, scrollLimit?: number) {
     frame = 0
     if (disposed) return
     const viewport = window.innerHeight
-    const scrollY = window.scrollY
-    const maxScroll = Math.max(0, document.documentElement.scrollHeight - viewport)
+    const scrollY = scrollPosition
+    const maxScroll = scrollLimit ?? Math.max(0, document.documentElement.scrollHeight - viewport)
     // Batch layout reads before writing any animation timelines.
     const progress = [...doodles].map(([element, animations]) => ({
       animations,
@@ -36,7 +36,7 @@ export function setupDoodleScroll(page: Element) {
   }
 
   function schedule() {
-    if (!disposed && !frame) frame = requestAnimationFrame(update)
+    if (!disposed && !frame) frame = requestAnimationFrame(() => update())
   }
 
   function refresh() {
@@ -66,18 +66,17 @@ export function setupDoodleScroll(page: Element) {
   }
 
   refresh()
-  window.addEventListener("scroll", schedule, { passive: true })
   window.addEventListener("resize", schedule)
   window.addEventListener("pageshow", schedule)
   const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule)
   resize?.observe(page)
 
   return {
+    update,
     refresh,
     dispose() {
       disposed = true
       cancelAnimationFrame(frame)
-      window.removeEventListener("scroll", schedule)
       window.removeEventListener("resize", schedule)
       window.removeEventListener("pageshow", schedule)
       resize?.disconnect()

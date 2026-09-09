@@ -6,6 +6,7 @@ import { motionBootstrap, motionPrepaintStyles } from "@/lib/scrapbook-motion-co
 import { ThemeProvider } from "@/components/theme-provider"
 
 import "./globals.css"
+import "lenis/dist/lenis.css"
 
 const themeScript = `
   (() => {

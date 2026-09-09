@@ -6,12 +6,10 @@ export const motionTargets: readonly [string, MotionEffect, number][] = [
   ["[data-write]", "write", 2],
   ["[data-underline]", "draw", 0.35],
   [".scrap-header-inner", "fade", 0.4],
-  ["[data-reveal], .scrap-letter-main", "fade", 0],
+  ["[data-reveal]", "fade", 0],
   [".scrap-postit", "note", 1],
   [".scrap-round-stamp, .scrap-postage", "stamp", 1],
-  [".scrap-hero-graph, .scrap-hero-photo, .scrap-id-card", "paper", 1],
-  [".scrap-project, .scrap-career-page, .scrap-education", "paper", 1],
-  [".scrap-about-copy, .scrap-principle-buttons, .scrap-future, .scrap-board-item, .scrap-envelope-bottom", "fade", 1],
+  [".scrap-hero-graph, .scrap-hero-photo", "paper", 1],
 ]
 export const motionSelector = motionTargets.map(([match]) => match).join(", ")
 
@@ -20,8 +18,12 @@ export const motionSelector = motionTargets.map(([match]) => match).join(", ")
 export const motionPrepaintStyles = `
   @media (prefers-reduced-motion: no-preference) {
     html:is([data-scrap-motion="pending"], [data-scrap-motion="active"])
-    #scrapbook-page :is(${motionSelector}, [data-doodle]):not([data-motion-state="visible"]) {
+    #scrapbook-page :is(${motionSelector}, [data-doodle], [data-lenis-reveal]):not([data-motion-state="visible"]) {
       opacity: 0;
+    }
+    html:is([data-scrap-motion="pending"], [data-scrap-motion="active"])
+    #scrapbook-page [data-lenis-reveal]:not([data-motion-state="visible"]) {
+      opacity: 0 !important;
     }
   }
 `
