@@ -29,6 +29,17 @@ Useful checks:
 npm run lint && npm run build
 ```
 
+## Publish to GitHub Pages
+
+This project is configured for GitHub Pages without GitHub Actions. The Vite build uses relative URLs, so it works for both a repository site (`username.github.io/repository-name`) and a user site (`username.github.io`).
+
+1. Run `npm install` and `npm run build`.
+2. In GitHub, open **Settings → Pages**.
+3. Under **Build and deployment**, choose **Deploy from a branch**.
+4. Publish the `dist` folder from your preferred Pages branch. If the Pages UI only offers a branch root, commit or copy the contents of `dist` to a dedicated `gh-pages` branch and select that branch’s root folder.
+
+The generated `dist` directory is intentionally ignored by git. Rebuild and republish it whenever the portfolio changes.
+
 ## Customize it
 
 Start with data/portfolio.json for the identity, copy, projects, links, and résumé. Change the content there before hunting through JSX like a detective in a very small, very stylish crime drama.

@@ -1,0 +1,2 @@
+# CSS is intentionally excluded from the language breakdown for this template.
+*.css linguist-detectable=false

@@ -7,6 +7,7 @@ import { Handwritten } from "@/components/handwritten"
 import { LenisReveal } from "@/components/lenis-reveal"
 
 import { content } from "@/data/content"
+import { assetPath } from "@/lib/asset-path"
 
 const { contact, site } = content
 const { email, socials } = contact
@@ -44,7 +45,7 @@ export function SiteFooter() {
         </LenisReveal>
         <LenisReveal variant="right" index={1} className="scrap-letter-rail">
           <span className="scrap-postage" aria-hidden="true">{contact.stamp.initials}<span>{contact.stamp.caption}</span></span>
-          <a href={contact.resume.href} download className="scrap-resume-button"><Download size={15}/>{contact.resume.label}</a>
+          <a href={assetPath(contact.resume.href)} download className="scrap-resume-button"><Download size={15}/>{contact.resume.label}</a>
         <nav className="scrap-letter-socials" aria-label={contact.socialLabel}>
           {socials.map(({ label, href, icon }) => { const Icon = socialIcons[icon] ?? ArrowUpRight; return <a key={label} href={href}><Icon size={16} aria-hidden="true"/><span>{label}</span></a> })}
         </nav>

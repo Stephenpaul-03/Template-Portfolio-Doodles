@@ -1,4 +1,5 @@
 import type { ImgHTMLAttributes } from "react"
+import { assetPath } from "@/lib/asset-path"
 
 type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   fill?: boolean
@@ -7,5 +8,5 @@ type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 }
 
 export function Image({ fill, priority, ...props }: ImageProps) {
-  return <img {...props} loading={priority ? "eager" : "lazy"} className={`${fill ? "scrap-image-fill" : ""} ${props.className ?? ""}`.trim()} />
+  return <img {...props} src={props.src ? assetPath(props.src) : props.src} loading={priority ? "eager" : "lazy"} className={`${fill ? "scrap-image-fill" : ""} ${props.className ?? ""}`.trim()} />
 }
