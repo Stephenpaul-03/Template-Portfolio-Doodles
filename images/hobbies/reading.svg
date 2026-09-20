@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 675" role="img" aria-label="Open book with handwritten margin notes">
+  <rect width="900" height="675" fill="#385044"/><path d="M118 120c121-35 229-18 332 57v382c-111-71-218-85-332-47z" fill="#eee5d2"/><path d="M782 120c-121-35-229-18-332 57v382c111-71 218-85 332-47z" fill="#e5d9c2"/>
+  <path d="M450 177v382" stroke="#aa9a81" stroke-width="5"/>
+  <g stroke="#80745f" stroke-width="5" opacity=".55"><path d="M166 211h208M166 246h236M166 281h191M166 350h224M166 385h184M498 211h224M498 246h188M498 315h220M498 350h173M498 385h211"/></g>
+  <path d="m211 306 48 13 91-5M556 286c34 25 70 27 108 5" fill="none" stroke="#b74c3e" stroke-width="8" stroke-linecap="round"/>
+</svg>

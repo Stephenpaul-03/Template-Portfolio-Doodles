@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Geometric community identity in green and cream">
+  <rect width="1200" height="900" fill="#253f34"/>
+  <circle cx="600" cy="450" r="294" fill="none" stroke="#e7dfca" stroke-width="2" opacity=".45"/>
+  <circle cx="600" cy="450" r="174" fill="#d5b85b"/>
+  <circle cx="474" cy="360" r="174" fill="#e7dfca" opacity=".9"/>
+  <circle cx="726" cy="360" r="174" fill="#94ab88" opacity=".9"/>
+  <circle cx="600" cy="578" r="174" fill="#c6654d" opacity=".92"/>
+  <text x="80" y="100" fill="#e7dfca" font-family="Arial, sans-serif" font-size="24" letter-spacing="8">COMMON GROUND</text>
+  <text x="80" y="826" fill="#e7dfca" font-family="Arial, sans-serif" font-size="15" letter-spacing="4" opacity=".7">A SHARED PLACE / 2025</text>
+</svg>

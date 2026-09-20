@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Editorial cover with amber circle and bold typography">
+  <rect width="1200" height="900" fill="#ddd8cc"/>
+  <rect x="0" y="0" width="425" height="900" fill="#22211e"/>
+  <circle cx="788" cy="430" r="230" fill="#dc9f43"/>
+  <text x="65" y="138" fill="#ede8dc" font-family="Georgia, serif" font-size="34" font-style="italic">Conversations with</text>
+  <text x="65" y="226" fill="#ede8dc" font-family="Arial, sans-serif" font-size="72" font-weight="700">AFTER</text>
+  <text x="65" y="304" fill="#ede8dc" font-family="Arial, sans-serif" font-size="72" font-weight="700">HOURS</text>
+  <text x="65" y="805" fill="#9d998f" font-family="Arial, sans-serif" font-size="15" letter-spacing="5">VOL. 01 / ARCHIVE</text>
+  <path d="M788 200v460M558 430h460" stroke="#22211e" stroke-width="2" opacity=".25"/>
+</svg>

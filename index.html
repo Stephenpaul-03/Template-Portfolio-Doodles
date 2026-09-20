@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#faf9f5" />
+    <title>Jane Doe — Portfolio</title>
+    <script>
+      (() => {
+        const saved = localStorage.getItem("jane-doe-portfolio-theme")
+        const dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches
+        document.documentElement.classList.toggle("dark", dark)
+        document.documentElement.style.colorScheme = dark ? "dark" : "light"
+      })()
+    </script>
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        html:is([data-scrap-motion="pending"], [data-scrap-motion="active"]) #scrapbook-page :is([data-write="words"], [data-write], [data-underline], .scrap-header-inner, [data-reveal], .scrap-postit, .scrap-round-stamp, .scrap-postage, .scrap-hero-graph, .scrap-hero-photo, [data-doodle], [data-lenis-reveal]):not([data-motion-state="visible"]),
+        html:is([data-scrap-motion="pending"], [data-scrap-motion="active"]) #scrapbook-page [data-lenis-reveal]:not([data-motion-state="visible"]) {
+          opacity: 0;
+        }
+      }
+    </style>
+    <script>
+      (() => {
+        if (!window.matchMedia || window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+            !("IntersectionObserver" in window) || !Element.prototype.animate) return
+        const root = document.documentElement
+        root.setAttribute("data-scrap-motion", "pending")
+        setTimeout(() => {
+          if (root.getAttribute("data-scrap-motion") === "pending") root.setAttribute("data-scrap-motion", "expired")
+        }, 1800)
+      })()
+    </script>
+    <script type="module" crossorigin src="./assets/index-Ln91zJ3q.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dw_Z_2CD.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 675" role="img" aria-label="Abstract late-afternoon street photograph">
+  <rect width="900" height="675" fill="#d6b37a"/><rect y="385" width="900" height="290" fill="#786451"/>
+  <rect x="92" y="126" width="326" height="353" fill="#eee3cf"/><rect x="136" y="180" width="118" height="176" fill="#496675"/><rect x="286" y="180" width="88" height="176" fill="#9c5142"/>
+  <circle cx="696" cy="175" r="92" fill="#f1d48e"/><path d="M696 266 532 675h314z" fill="#e3c17f" opacity=".45"/>
+  <path d="M0 548c188-34 333-24 463 9s268 28 437-4" fill="none" stroke="#302b27" stroke-width="9" opacity=".5"/>
+  <rect x="448" y="366" width="84" height="189" rx="40" fill="#2c3435"/><circle cx="490" cy="327" r="39" fill="#2c3435"/>
+</svg>

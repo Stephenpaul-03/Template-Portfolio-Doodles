@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 675" role="img" aria-label="Bicycle on a winding road">
+  <rect width="900" height="675" fill="#bcd2cf"/><path d="M0 330c218-103 352-93 505 4s257 82 395 13v328H0z" fill="#78917e"/>
+  <path d="M333 675c-12-170 75-230 214-271 113-33 171-80 183-154" fill="none" stroke="#e6d9bd" stroke-width="78"/>
+  <g fill="none" stroke="#25312e" stroke-width="13"><circle cx="423" cy="404" r="67"/><circle cx="604" cy="404" r="67"/><path d="m423 404 79-119 44 119H423l62-82h93l26 82M502 285h-41M578 322l-20-50h40"/></g>
+  <circle cx="758" cy="116" r="61" fill="#e7b85d"/>
+</svg>

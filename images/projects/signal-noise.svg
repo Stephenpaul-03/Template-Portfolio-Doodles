@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Dark data interface with blue signal graph">
+  <rect width="1200" height="900" fill="#171a20"/>
+  <rect x="72" y="70" width="1056" height="760" rx="18" fill="#20242c" stroke="#3d434f"/>
+  <circle cx="110" cy="108" r="8" fill="#d76d5a"/><circle cx="138" cy="108" r="8" fill="#d5ae58"/><circle cx="166" cy="108" r="8" fill="#66a57b"/>
+  <path d="M128 628C188 628 198 564 250 564s68 95 124 95 77-324 136-324 65 179 125 179 68-77 126-77 75-210 130-210 84 281 181 281" fill="none" stroke="#78a8ff" stroke-width="7"/>
+  <g fill="#8a93a4"><rect x="128" y="190" width="310" height="15" rx="7"/><rect x="128" y="232" width="210" height="10" rx="5" opacity=".55"/></g>
+  <g stroke="#59606d" opacity=".45"><path d="M128 298h944M128 410h944M128 522h944M128 634h944"/></g>
+</svg>
