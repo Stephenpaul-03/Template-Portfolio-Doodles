@@ -63,7 +63,6 @@ export function HobbiesSection() {
     <LayoutGroup id="scrap-hobbies">
       <div ref={board} className="scrap-board">
         <span className="scrap-board-label scrap-hand" aria-hidden="true">{copy.boardLabel}</span>
-        <div className="scrap-board-doodle" aria-hidden="true">✳</div>
         {hobbies.map((hobby, index) => <BoardCard key={hobby.id} hobby={hobby} index={index} board={board} selected={selected?.id === hobby.id} onSelect={() => { lastSelected.current = hobby.id; setMounted(true); setSelected(hobby) }} bringForward={() => setLayers(current => ({ ...current, [hobby.id]: ++layer.current }))} z={layers[hobby.id] ?? index + 1}/>)}
       </div>
       {mounted && createPortal(<AnimatePresence onExitComplete={() => requestAnimationFrame(() => document.querySelector<HTMLButtonElement>(`[data-hobby="${CSS.escape(lastSelected.current)}"]`)?.focus())}>{selected && <ScrapbookModal key={selected.id} title={selected.label} layoutId={`scrap-hobby-${selected.id}`} onClose={close}><div className="scrap-hobby-modal"><div className="scrap-modal-art"><Image src={selected.image} alt={selected.description} fill sizes="700px"/></div><div className="scrap-modal-copy"><span className="scrap-hand">{copy.modalLabel}</span><h2>{selected.label}</h2><p>{selected.detail}</p><ul>{selected.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></div></div></ScrapbookModal>}</AnimatePresence>, document.body)}

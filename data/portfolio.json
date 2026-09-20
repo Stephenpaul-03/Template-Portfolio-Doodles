@@ -426,23 +426,23 @@
     },
     "resume": {
       "label": "My résumé",
-      "href": "/files/jane-doe-resume-placeholder.pdf"
+      "href": "/files/resume.pdf"
     },
     "socialLabel": "Social links",
     "socials": [
       {
         "label": "LinkedIn",
-        "href": "https://www.linkedin.com",
+        "href": "https://example.com/placeholder-linkedin",
         "icon": "linkedin"
       },
       {
         "label": "GitHub",
-        "href": "https://github.com",
+        "href": "https://example.com/placeholder-github",
         "icon": "github"
       },
       {
         "label": "Instagram",
-        "href": "https://www.instagram.com",
+        "href": "https://example.com/placeholder-instagram",
         "icon": "instagram"
       }
     ],

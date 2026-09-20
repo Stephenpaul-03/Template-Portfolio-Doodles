@@ -28,7 +28,7 @@ Edit **`data/portfolio.json`** for all visitor-facing content. Components and th
 - `hobbies`: board captions and each hobby's image, description, modal text, and facts.
 - `contact`: email, resume download, social links/icons, stamp, signature, and footer copy.
 
-For example, replace `contact.email` and set `contact.resume.href` to `/files/your-resume.pdf`, then put that PDF in `public/files/`. Project contact links are separate `work.projects[].links[].href` values, so update their email addresses too. Images use paths relative to `public/`, such as `/images/hobbies/photography.svg`. The current contact URLs, projects, resume, and career details are placeholders.
+For example, replace `contact.email` and put the resume PDF at `public/files/resume.pdf`. Project contact links are separate `work.projects[].links[].href` values, so update their email addresses too. Images use paths relative to `public/`, such as `/images/hobbies/photography.svg`. The current contact URLs, projects, resume, and career details are placeholders.
 
 Reorder project, experience, or hobby objects to change their order. Keep hobby IDs unique and stable (lowercase letters, numbers, hyphens). The current scattered board has eight designed positions; extra cards reuse these positions and can be dragged apart. Social icon keys are `linkedin`, `github`, and `instagram`. Keep navigation anchor targets unchanged unless also changing section IDs in code.
 

@@ -155,7 +155,6 @@
 .scrap-hobbies-section { position: relative; z-index: 0; isolation: isolate; background: var(--desk); border-block: 1px solid var(--rule); }
 .scrap-board { position: relative; width: 100%; height: 720px; border-block: 1px solid var(--rule); background-color: var(--paper); background-image: radial-gradient(var(--rule) 1px,transparent 1px); background-size: 18px 18px; box-shadow: inset 0 0 35px #201b0d08; overflow: hidden; }
 .scrap-board-label { position: absolute; bottom: 35px; right: 40px; color: var(--quiet); transform: rotate(-3deg); font-size: 23px; }
-.scrap-board-doodle { position: absolute; top: 60px; left: 48%; color: var(--red); font-size: 80px; font-family: serif; }
 .scrap-board-item { position: absolute; width: 232px; height: 312px; }
 .scrap-board-item-0 { top: 5%; left: 5%; }
 .scrap-board-item-1 { top: 7%; left: 68%; }
@@ -303,7 +302,7 @@
   .scrap-board-item-2 { left: 4%; top: 37%; } .scrap-board-item-3 { left: 42%; top: 53%; } .scrap-board-item-4 { left: 4%; top: 72%; }
   .scrap-board-item-5 { left: 42%; top: 35%; } .scrap-board-item-6 { left: 4%; top: 82%; } .scrap-board-item-7 { left: 42%; top: 86%; }
   .scrap-hobby-caption { padding-inline: 3px; } .scrap-hobby-caption h3 { font-size: 20px; }
-  .scrap-board-label { right: 17px; bottom: 20px; font-size: 17px; } .scrap-board-doodle { left: 62%; top: 7%; font-size: 55px; }
+  .scrap-board-label { right: 17px; bottom: 20px; font-size: 17px; }
   .scrap-envelope { padding: 10px; margin-bottom: 45px; }
   .scrap-letter { position: relative; grid-template-columns: minmax(0, 1fr); padding: 23px 20px 30px; }
   .scrap-letter-rail { width: 100%; justify-self: stretch; margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
