@@ -57,7 +57,7 @@ export function SiteFooter() {
         <Doodle name="sparkles" className="scrap-footer-base-doodle"/>
         <a href="#top" className="scrap-footer-mini-brand"><span className="scrap-monogram">{site.monogram}</span><span>{site.brand}</span></a>
         <span className="scrap-envelope-origin">{contact.origin}</span>
-        <span className="scrap-envelope-meta">© {new Date().getFullYear()} {site.name} · {contact.copyrightNote}</span>
+        <span className="scrap-envelope-meta">© {new Date().getFullYear()} {contact.copyrightHolder} · {contact.copyrightNote}</span>
         <a href="#top" className="scrap-envelope-back scrap-button" aria-label={contact.backToTop}><span className="scrap-envelope-back-label">{contact.backToTop}</span><span aria-hidden="true">↑</span></a>
         <Doodle name="waves" className="scrap-envelope-postmark" aria-hidden="true"/>
       </LenisReveal>
