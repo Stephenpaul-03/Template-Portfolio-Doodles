@@ -12,8 +12,8 @@ test("portfolio owns one root Lenis instance on the Framer frame loop", () => {
   assert.match(provider, /frame\.update\(update,\s*true\)/)
   assert.match(provider, /anchors:\s*\{/)
   assert.match(provider, /respectReducedMotion:\s*true/)
-  assert.match(read("app/portfolio/page.tsx"), /<PortfolioScroll>/)
-  assert.match(read("app/layout.tsx"), /lenis\/dist\/lenis\.css/)
+  assert.match(read("main.tsx"), /<PortfolioScroll>/)
+  assert.match(read("main.tsx"), /lenis\/dist\/lenis\.css/)
 })
 
 test("scroll-reactive components consume Lenis instead of native scroll loops", () => {

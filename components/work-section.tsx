@@ -2,7 +2,7 @@
 
 import { AnimatePresence } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
-import Image from "next/image"
+import { Image } from "@/components/image"
 import { useCallback, useState } from "react"
 import { createPortal } from "react-dom"
 import { Chapter } from "@/components/scrapbook-ui"

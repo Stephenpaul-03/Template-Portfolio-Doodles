@@ -1,22 +1,20 @@
 {
   "site": {
-    "name": "Stephen Paul",
-    "brand": "Stephen Paul’s Workshop",
-    "monogram": "s.",
+    "name": "Jane Doe",
+    "brand": "Jane Doe’s Portfolio",
+    "monogram": "a.",
     "language": "en",
-    "description": "The portfolio of Stephen Paul - designer, builder, and curious problem solver.",
+    "description": "The portfolio of Jane Doe - designer, builder, and curious problem solver.",
     "portfolioTitle": "Portfolio",
-    "portfolioDescription": "A collection of work, observations, and things that matter to Stephen Paul."
+    "portfolioDescription": "A collection of work, observations, and things that matter to Jane Doe."
   },
   "navigation": {
     "subtitle": "a little collection of me",
-    "brandLabel": "Stephen Paul's Workshop, back to top",
+    "brandLabel": "Jane Doe's portfolio, back to top",
     "mainLabel": "Main navigation",
     "mobileLabel": "Mobile navigation",
     "open": "Open navigation",
     "close": "Close navigation",
-    "modeLabel": "Modes",
-    "modeAriaLabel": "Back to mode switch",
     "contactLabel": "Say hello ↗",
     "lightTheme": "Switch to light theme",
     "darkTheme": "Switch to dark theme",
@@ -47,32 +45,9 @@
       }
     ]
   },
-  "modeSwitch": {
-    "intro": "Choose your way in",
-    "eyebrow": "A portfolio in two parts",
-    "title": [
-      "A quick introduction,",
-      "or the scenic route."
-    ],
-    "normal": {
-      "label": "01 / Normal mode",
-      "description": [
-        "I have a few minutes —",
-        "show me who you are."
-      ]
-    },
-    "experience": {
-      "label": "02 / Experience mode",
-      "status": "Coming soon",
-      "description": [
-        "Show me how creative",
-        "you can get."
-      ]
-    }
-  },
   "hero": {
     "eyebrow": "Designer, builder & perpetual noticer",
-    "greeting": "Hello, I’m Stephen Paul.",
+    "greeting": "Hello, I’m Jane Doe.",
     "title": "I make things",
     "titleAccent": "make sense.",
     "intro": "A designer with a builder’s curiosity. This is my corner of the internet—a collection of work, things I care about, and ideas still taking shape.",
@@ -444,14 +419,14 @@
     "copyLabel": "Copy email address",
     "copySuccess": "Copied to clipboard",
     "copyError": "Select the email address to copy it.",
-    "signoff": "Until then, Stephen Paul.",
+    "signoff": "Until then, Jane Doe.",
     "stamp": {
-      "initials": "S.P.",
+      "initials": "A.M.",
       "caption": "BY LOVE"
     },
     "resume": {
       "label": "My résumé",
-      "href": "/files/steve-resume-placeholder.pdf"
+      "href": "/files/jane-doe-resume-placeholder.pdf"
     },
     "socialLabel": "Social links",
     "socials": [

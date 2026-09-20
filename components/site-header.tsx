@@ -4,8 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import type Lenis from "lenis"
 import { useLenis } from "lenis/react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { ArrowLeft, Menu, Moon, Sun, X } from "lucide-react"
-import Link from "next/link"
+import { Menu, Moon, Sun, X } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { currentScrollSection } from "@/lib/scroll-navigation"
 
@@ -88,7 +87,6 @@ export function SiteHeader() {
         </a>
       })}</nav>
       <div className="scrap-header-actions">
-        <Link href="/" className="scrap-mode-link" aria-label={navigation.modeAriaLabel}><ArrowLeft size={14}/><span>{navigation.modeLabel}</span></Link>
         <button className="scrap-icon-button" onClick={toggleTheme} aria-label={theme === "light" ? navigation.darkTheme : navigation.lightTheme}>{theme === "light" ? <Moon size={16}/> : <Sun size={16}/>}</button>
         <a href="#contact" className="scrap-header-contact" aria-current={active === "contact" ? "location" : undefined}>{navigation.contactLabel}</a>
         <button ref={menu} className="scrap-icon-button scrap-menu-toggle" aria-controls="scrap-menu" aria-expanded={open} onClick={() => setOpen(!open)} aria-label={open ? navigation.close : navigation.open}>{open ? <X size={18}/> : <Menu size={18}/>}</button>

@@ -26,7 +26,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         document.documentElement.classList.toggle("dark", nextTheme === "dark")
         document.documentElement.style.colorScheme = nextTheme
         setTheme(nextTheme)
-        try { localStorage.setItem("steves-workshop-theme", nextTheme) } catch { /* Theme remains usable when storage is unavailable. */ }
+        try { localStorage.setItem("jane-doe-portfolio-theme", nextTheme) } catch { /* Theme remains usable when storage is unavailable. */ }
       },
     }),
     [theme]

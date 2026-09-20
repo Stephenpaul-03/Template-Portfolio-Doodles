@@ -41,11 +41,11 @@ test("direct portfolio loads prepare motion before hydration and install a short
   assert.ok(env.timers.some(timer => timer.delay === 1800))
 })
 
-test("landing page stays idle so its content is never hidden by portfolio preparation", () => {
+test("the root route prepares the single portfolio experience", () => {
   const env = bootstrap({ pathname: "/" })
-  assert.equal(env.state(), "idle")
+  assert.equal(env.state(), "pending")
   env.timers.forEach(timer => timer.callback())
-  assert.equal(env.state(), "idle")
+  assert.equal(env.state(), "expired")
 })
 
 test("reduced motion does not prepare hidden content", () => {

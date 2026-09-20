@@ -2,7 +2,7 @@
 
 import { AnimatePresence, LayoutGroup, motion, useDragControls, useMotionValue, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, GripHorizontal } from "lucide-react"
-import Image from "next/image"
+import { Image } from "@/components/image"
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react"
 import { createPortal } from "react-dom"
 import { ScrapbookModal } from "@/components/scrapbook-modal"

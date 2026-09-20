@@ -33,7 +33,7 @@ export const motionBootstrap = `
     if (!window.matchMedia || window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
         !("IntersectionObserver" in window) || !Element.prototype.animate) return;
     const root = document.documentElement;
-    const initialPortfolio = window.location.pathname === "/portfolio";
+    const initialPortfolio = true;
     root.setAttribute("data-scrap-motion", initialPortfolio ? "pending" : "idle");
     if (initialPortfolio) setTimeout(() => {
       if (root.getAttribute("data-scrap-motion") === "pending") {

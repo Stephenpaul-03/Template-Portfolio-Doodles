@@ -5,7 +5,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
 
-OUTPUT = Path(__file__).resolve().parents[1] / "public" / "files" / "steve-resume-placeholder.pdf"
+OUTPUT = Path(__file__).resolve().parents[1] / "public" / "files" / "jane-doe-resume-placeholder.pdf"
 
 
 def draw_rule(pdf: canvas.Canvas, y: float) -> None:
@@ -24,7 +24,7 @@ def main() -> None:
 
     pdf.setFillColor(HexColor("#211F1B"))
     pdf.setFont("Helvetica-Bold", 27)
-    pdf.drawString(52, height - 68, "Steve")
+    pdf.drawString(52, height - 68, "Jane Doe")
     pdf.setFont("Helvetica", 10)
     pdf.setFillColor(HexColor("#69645B"))
     pdf.drawString(52, height - 88, "Designer + Builder")
@@ -83,7 +83,7 @@ def main() -> None:
     pdf.setFont("Helvetica-Oblique", 8)
     pdf.setFillColor(HexColor("#8A847A"))
     pdf.drawString(52, 40, "Placeholder resume - replace content and contact details before launch.")
-    pdf.drawRightString(width - 52, 40, "Steve's Workshop")
+    pdf.drawRightString(width - 52, 40, "Jane Doe's Portfolio")
 
     pdf.showPage()
     pdf.save()

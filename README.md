@@ -1,12 +1,10 @@
-# Stephen Paul's Workshop
+# Template Portfolio Doodles
 
-A two-path portfolio built with Next.js 15, the App Router, TypeScript, Tailwind CSS 4, shadcn/ui, Framer Motion, and Lenis.
+A single-page portfolio built with Vite, React, TypeScript, Tailwind CSS 4, shadcn/ui, Framer Motion, and Lenis.
 
 ## Routes
 
-- `/` - desktop mode switch; mobile and tablet requests redirect to Normal Mode
-- `/portfolio` - responsive, single-page portfolio ordered as Hero, About, Selected Work, Experience/Education, Hobbies, and a combined Contact/Footer
-- `/workshop` - route namespace reserved for the future Experience Mode; no page ships yet and the current landing choice is visibly disabled
+- `/` - responsive, single-page portfolio ordered as Hero, About, Selected Work, Experience/Education, Hobbies, and a combined Contact/Footer
 
 ## Development
 
@@ -23,7 +21,7 @@ npm run build
 Edit **`data/portfolio.json`** for all visitor-facing content. Components and the compatibility exports in `data/projects.ts` and `data/experience.ts` read from this single source; do not edit copy inside components.
 
 - `site`: name, brand, monogram, language, and search metadata.
-- `navigation`, `modeSwitch`, `ui`: navigation, landing choices, theme controls, and accessibility labels.
+- `navigation`, `ui`: navigation, theme controls, and accessibility labels.
 - `hero`, `about`: introduction, photo/caption, sticky-note thoughts, profile facts, skills, and principles.
 - `work`: chapter copy, project cards, case-study details, tags, images, and links.
 - `journey`: experience entries, education copy, and the future chapter.
@@ -40,7 +38,7 @@ Save during `npm run dev` to refresh the content. Production changes require a r
 
 ## Animation sequencing
 
-Normal Mode has one root Lenis instance in `components/portfolio-scroll.tsx`. It handles smooth wheel scrolling and anchor navigation, respects reduced-motion preferences, and runs on Framer Motion's frame loop. Header section tracking, chapter rules, card entrance checks, and doodle timelines subscribe to Lenis updates. Modals stop the page instance while open, their detail panel retains native nested scrolling, and draggable hobby cards opt out of Lenis touch capture.
+The page has one root Lenis instance in `components/portfolio-scroll.tsx`. It handles smooth wheel scrolling and anchor navigation, respects reduced-motion preferences, and runs on Framer Motion's frame loop. Header section tracking, chapter rules, card entrance checks, and doodle timelines subscribe to Lenis updates. Modals stop the page instance while open, their detail panel retains native nested scrolling, and draggable hobby cards opt out of Lenis touch capture.
 
 Timed entrances cover the introduction, content/paper, and handwritten notes. Doodles are independently scrubbed by scroll position, not played on a timer. Within the introduction, the hero eyebrow, letter-by-letter greeting, word-by-word headline lines, description, and links have separate ordered phases. The accent underline draws only after its words finish; the header then fades in with the introduction. Chapter titles also reveal word by word. Related cards stagger lightly within their beat; different beats never run concurrently.
 
@@ -50,10 +48,8 @@ Only intersecting elements join the sequence. Scrolling past, focusing, or touch
 
 Shared selectors and pre-paint setup live in `lib/scrapbook-motion-config.ts`; entrance timing lives in `components/scrapbook-motion.tsx`. `data-motion-phase` sets local ordering.
 
-Tests cover stage ordering, card staggering, fast scrolling, interaction cancellation, updated notes, and reduced-motion cleanup. Run production builds in a separate checkout/copy if a development server is already using `.next`.
+Tests cover stage ordering, card staggering, fast scrolling, interaction cancellation, updated notes, and reduced-motion cleanup.
 
-Normal Mode includes a persistent light/dark theme, a header that condenses into a floating pill, scroll-reactive section entrances, animated project drawers, draggable hobby cards with shared-layout modals, and an in-flow contact finale. Project and hobby overlays close through their close button, backdrop, or the Escape key, and respect reduced-motion preferences.
+The portfolio includes a persistent light/dark theme, a header that condenses into a floating pill, scroll-reactive section entrances, animated project drawers, draggable hobby cards with shared-layout modals, and an in-flow contact finale. Project and hobby overlays close through their close button, backdrop, or the Escape key, and respect reduced-motion preferences.
 
-## Mobile routing
-
-`middleware.ts` uses Next's user-agent parser to redirect known phones and tablets before rendering the landing screen. The mode-switch component also checks a 767px media query as a fallback for unusual user agents. This avoids a flash for normal mobile traffic while still handling narrow desktop-class browsers.
+The app is intentionally a single React route with no alternate mode or landing screen.

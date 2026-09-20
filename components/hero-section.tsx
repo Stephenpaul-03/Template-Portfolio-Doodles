@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowDownRight, ArrowUpRight, Asterisk } from "lucide-react"
-import Image from "next/image"
+import { Image } from "@/components/image"
 import { useState } from "react"
 import { Handwritten } from "@/components/handwritten"
 

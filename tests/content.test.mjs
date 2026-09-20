@@ -15,8 +15,8 @@ test("content collections and copy are nonempty, and two-line fields keep both l
     } else Object.entries(value).forEach(([key, item]) => visit(item, path + "." + key))
   }
   visit(content, "content")
-  for (const section of ["site", "navigation", "modeSwitch", "hero", "about", "work", "journey", "hobbies", "contact", "ui"]) assert.ok(content[section])
-  for (const lines of [content.modeSwitch.title, content.modeSwitch.normal.description, content.modeSwitch.experience.description, content.hero.stamp, content.journey.education.signoff, content.contact.description]) assert.equal(lines.length, 2)
+  for (const section of ["site", "navigation", "hero", "about", "work", "journey", "hobbies", "contact", "ui"]) assert.ok(content[section])
+  for (const lines of [content.hero.stamp, content.journey.education.signoff, content.contact.description]) assert.equal(lines.length, 2)
 })
 
 test("all configured local images and downloads exist", () => {
@@ -46,7 +46,7 @@ test("navigation anchors, hobby IDs, links, and social icons stay usable", () =>
 
 test("components contain no hardcoded editorial JSX text or accessible labels", () => {
   const files = readdirSync(new URL("components/", root)).filter(name => name.endsWith(".tsx")).map(name => "components/" + name)
-  files.push("app/layout.tsx", "app/page.tsx", "app/portfolio/page.tsx")
+  files.push("main.tsx")
   const hardcoded = []
   for (const file of files) {
     const source = ts.createSourceFile(file, readFileSync(new URL(file, root), "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
